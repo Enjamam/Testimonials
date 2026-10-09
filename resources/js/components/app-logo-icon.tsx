@@ -1,0 +1,53 @@
+import type { SVGAttributes } from 'react';
+
+export default function AppLogoIcon(props: SVGAttributes<SVGElement>) {
+    return (
+        <svg
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <defs>
+                <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#10B981" />
+                    <stop offset="50%" stopColor="#059669" />
+                    <stop offset="100%" stopColor="#047857" />
+                </linearGradient>
+                <linearGradient id="star-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FDE047" />
+                    <stop offset="100%" stopColor="#F59E0B" />
+                </linearGradient>
+            </defs>
+            {/* Smooth rounded squircle badge */}
+            <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+            {/* Subtle inner highlight overlay */}
+            <rect
+                x="0.75"
+                y="0.75"
+                width="30.5"
+                height="30.5"
+                rx="7.25"
+                stroke="white"
+                strokeOpacity="0.3"
+                strokeWidth="1.5"
+            />
+            {/* Modern testimonial speech bubble */}
+            <path
+                d="M7 10C7 8.34315 8.34315 7 10 7H21C22.6569 7 24 8.34315 24 10V17C24 18.6569 22.6569 20 21 20H13.5L9 23.5V20H10C8.34315 20 7 18.6569 7 17V10Z"
+                fill="white"
+                fillOpacity="0.18"
+            />
+            {/* Crisp Quote Marks */}
+            <path
+                d="M10.8 15.2C10.8 13.4 11.8 12.1 13.5 11.7V12.9C12.5 13.1 12.1 13.6 12.1 14.3H13.5V17H10.8V15.2ZM15.2 15.2C15.2 13.4 16.2 12.1 17.9 11.7V12.9C16.9 13.1 16.5 13.6 16.5 14.3H17.9V17H15.2V15.2Z"
+                fill="white"
+            />
+            {/* Sparkling Social Proof Star */}
+            <path
+                d="M22 8L22.6 9.6L24.2 10.2L22.6 10.8L22 12.4L21.4 10.8L19.8 10.2L21.4 9.6L22 8Z"
+                fill="url(#star-gradient)"
+            />
+        </svg>
+    );
+}
