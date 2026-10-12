@@ -14,7 +14,7 @@ This application was engineered and tested using advanced pair-programming agent
   - **`Laravel Boost MCP`**: Laravel architecture enforcement, database schema verification, and framework-level best practices.
   - **`Wayfinder MCP`**: Auto-generated type-safe TypeScript bindings connecting Laravel controllers and routes directly to the React frontend.
 - **Automated Verification**:
-  - **Pest v5**: 159 automated feature & unit tests with 961 assertions passing.
+  - **Pest v5**: 162 automated feature & unit tests with 984 assertions passing.
   - **Laravel Pint**: Opinionated automated PHP code styling and formatting.
   - **TypeScript & Vite Compiler**: Zero-error strict type checking with React Compiler optimization.
 
@@ -23,14 +23,15 @@ This application was engineered and tested using advanced pair-programming agent
 ## 📊 Feature Completion Status
 
 ### ✅ Completed & Verified Features
-- [x] **Space & Collection Management**: Branded spaces, custom prompts, minimal light/dark themes, configurable fields (photo, company, social), star ratings.
-- [x] **Public Submission Flow**: Responsive `/s/{public_id}` form, consent checkbox gating, spam honeypot, rate limiting, and live celebratory modal with confetti & preview.
-- [x] **Testimonial Moderation Inbox**: Approval/rejection workflows, favorites, Wall of Love flagging, and multi-parameter searching/filtering.
-- [x] **Embed Builder & Wall of Love**: Customizable layouts (masonry, grid, carousel), zero-dependency standalone `embed.js`, and live `/embed-demo.html` demo.
+- [x] **Space & Collection Management**: Branded spaces, custom prompts, minimal light/dark themes, configurable fields (photo, company, social), star ratings, and human-readable branded URLs (`/s/{slug}`).
+- [x] **Public Submission Flow**: Responsive `/s/{slug}` form, consent checkbox gating, spam honeypot, rate limiting, and live celebratory modal with confetti & preview.
+- [x] **Instant QR Code Generator**: High-contrast scannable QR code modal with 1-click PNG download for physical table tents, receipts, flyers, and storefront desks.
+- [x] **Testimonial Moderation Inbox**: Approval/rejection workflows, favorites, Wall of Love flagging, inline clearable search, active filter indicators, and **1-click CSV export**.
+- [x] **Embed Builder & Wall of Love**: Customizable layouts (equal-height responsive grid, carousel), min-star filter (3+, 4+, 5★), corner radius and shadow depth presets, theme-adaptive transparent background, zero-dependency standalone `embed.js`, and live `/embed-demo.html` demo.
 - [x] **Subscriptions & Monetization**: Free vs Pro plan limits enforced server-side with row-level locks, Stripe Checkout, webhook idempotency, and Stripe Customer Portal.
 - [x] **Profile & Account Management**: Avatar photo upload with automatic disk storage, card-based settings layout, smooth tab transitions, 2FA (TOTP), Passkeys (WebAuthn), and Danger Zone account deletion.
 - [x] **Appearance & Theme Studio**: Light/Dark/System modes, 7 curated accent color palettes with real-time CSS variables, and corner curvature presets.
-- [x] **Comprehensive Automated Testing**: 159 tests passing (961 assertions) with 100% critical path coverage.
+- [x] **Comprehensive Automated Testing**: 162 tests passing (984 assertions) with 100% critical path coverage.
 
 ### ⏸️ Deliberately Out of Scope (MVP Product Boundaries)
 In accordance with the project contract (`CONTEXT.md`), the following features were excluded to prioritize rock-solid MVP core execution:
@@ -47,26 +48,33 @@ In accordance with the project contract (`CONTEXT.md`), the following features w
 
 ### 🏢 Space & Collection Management
 - **Dedicated Spaces**: Create branded collection spaces with custom prompts, headers, subtitles, and guiding questions.
+- **Short & Meaningful Public Links**: Human-friendly branded URLs formatted as `/s/{slug}` (e.g. `/s/cloudscale-devops`) with automatic fallback to `/s/{public_id}`.
+- **Instant QR Code Generation**: Download high-contrast PNG QR codes directly from the Space overview or Inbox for display on printed collateral.
 - **Theme Personalization**: High-contrast **Minimal Light** and **Minimal Dark** themes that adapt cleanly to any brand.
 - **Configurable Fields**: Toggle optional/required respondent fields including avatar photos, company names, job titles, and social profile links.
 - **Star Ratings**: Configurable 1–5 star rating selector with intuitive rating labels.
 
 ### ✍️ Public Submission Flow & UX
-- **Seamless Public Forms**: Clean, ultra-fast, mobile-responsive submission pages at `/s/{public_id}`.
+- **Seamless Public Forms**: Clean, ultra-fast, mobile-responsive submission pages at `/s/{slug}`.
 - **Consent-Gated Submissions**: Strict permission consent checkbox gating to ensure legal compliance for public marketing usage.
 - **Live Celebratory Modal**: Beautiful celebratory popup dialog upon submission featuring floating confetti animations, glowing celebratory badge, and an instant live preview of the submitted testimonial.
 - **Spam & Abuse Protection**: Client-side image validation (2MB limit), silent honeypot trap (`website_hp`), and server-side submission rate limiting (6 requests/minute).
 
 ### 📥 Testimonial Inbox & Moderation
 - **Moderation Workflow**: Filter by pending, approved, or archived/rejected testimonials.
+- **1-Click CSV Export**: Streamed, authorized export of all collected testimonials with UTF-8 BOM encoding for seamless Microsoft Excel and Google Sheets compatibility.
 - **Wall of Love Selection**: Curate and feature the best testimonials for public display with a single click.
-- **Search & Filtering**: Search by customer name, company, or testimonial text; filter by star rating and featured status.
+- **Enhanced Search & Filtering**: Instant search by customer name, company, or testimonial text with an inline `X` reset button and active filter indicator chips.
 
 ### 🌐 Widgets, Wall of Love & Embeds
-- **Interactive Embed Builder**: Customize live widgets with grid layouts, carousels, dark/light themes, and custom borders.
+- **Interactive Embed Builder Studio**: Live sandbox with real-time layout updates, iframe and script snippet generators.
+- **Uniform Equal-Height Grid**: Replaced uneven multi-column flow with CSS Grid and bottom-anchored author footers for a symmetrical, polished presentation.
+- **Theme-Adaptive Transparent Background**: Embeds default to `transparent` to naturally inherit host website background colors, accompanied by 1-click theme presets (`Interface Default`, `Dark`, `Light`, `Slate`).
+- **Minimum Star Rating Filter**: Configure widgets to display only top praise (e.g. *Only show 4★ and 5★ reviews*).
+- **Card Radius & Shadow Presets**: Choose between Sharp, Classic, Smooth, and Pill corner radii, plus Flat, Subtle, Elevated, and Floating shadow depths.
 - **Lightweight Embed Script**: Zero-dependency standalone JavaScript loader (`public/embed.js`) compatible with any CMS, Shopify, WordPress, Webflow, or custom site.
 - **Iframe & Direct Integration**: Responsive iframe fallback and native embed code snippets with one-click copy.
-- **Embed Demo Showcase**: Built-in demonstration page at `/embed-demo.html` showcasing live masonry and carousel widgets.
+- **Embed Demo Showcase**: Built-in demonstration page at `/embed-demo.html` showcasing live responsive grid and carousel widgets.
 
 ### 👤 Profile, Avatar & Account Settings
 - **Profile Picture Upload**: Upload custom avatar photos (JPG, PNG, WebP up to 2MB) with live client-side preview, automatic disk storage management, and old photo cleanup.

@@ -45,16 +45,16 @@ Last Updated: Phase 12 QA & Release Verification (All Phases Complete)
 ### Testing Setup
 - **Framework**: Pest v5 (`pestphp/pest: ^5.3`, `pestphp/pest-plugin-laravel: ^5.0`)
 - **Configuration**: `tests/Pest.php` binds `Tests\TestCase` and uses `RefreshDatabase` for Feature tests.
-- **Test Suite Status**: 121 tests passing (691 assertions, 0 failures, run time ~5.4s).
+- **Test Suite Status**: 162 tests passing (984 assertions, 0 failures, run time ~7.5s).
   - Starter kit tests: 40 tests
   - Cashier integration: 6 tests (`CashierTest`)
   - Domain models & scopes: 18 tests (`DomainModelTest`)
   - Authorization & IDOR protection: 6 tests (`AuthorizationTest`)
   - Space Management & Limits: 12 tests (`SpaceManagementTest`)
   - Public Collection & Submissions: 14 tests (`PublicTestimonialSubmissionTest`)
-  - Space Inbox & Moderation: 14 tests (`TestimonialModerationTest`)
+  - Space Inbox & Moderation: 16 tests (`TestimonialModerationTest` with CSV export coverage)
   - Dashboard & Analytics: 5 tests (`DashboardTest`)
-  - Embed Builder & Runtime: 8 tests (`EmbedBuilderTest`)
+  - Embed Builder & Runtime: 9 tests (`EmbedBuilderTest` with min_rating and styling coverage)
 
 ### Queue Setup
 - **Connection**: `database` (`QUEUE_CONNECTION=database` in `.env`).
@@ -226,4 +226,18 @@ Total of 65 registered routes:
   - Replaced cavernous spacing with balanced `max-w-5xl` card layouts.
   - Replaced starter-kit logo with modern production-grade SaaS emblem in `app-logo.tsx` and `app-logo-icon.tsx`.
   - Removed redundant billing navigation button from inner settings tabs.
+- [x] Wall of Love Embed Studio Polish:
+  - Enforced uniform equal-height grid layout using CSS Grid (`items-stretch` with flex-stretched cards and bottom-anchored author footers), eliminating jagged column offsets.
+  - Synchronized default background color to `transparent` (`Interface Default`), blending with host interfaces without stark white boxes.
+  - Added Minimum Star Rating filter (All, 3+, 4+, 5★ only) for both live preview and public wall.
+  - Added Card Corner Radius presets (Sharp, Classic, Smooth, Pill) and Shadow Elevation presets (Flat, Subtle, Elevated, Floating).
+- [x] Instant Scannable QR Code Generator:
+  - Added high-contrast QR code dialog component (`qr-code-dialog.tsx`) to Space Overview and Inbox.
+  - Includes 1-click PNG download for printed collateral and direct link copying.
+- [x] 1-Click Testimonial CSV Export:
+  - Added authorized streamed CSV download (`spaces.testimonials.export`) with UTF-8 BOM encoding for Microsoft Excel and Google Sheets.
+- [x] Short & Meaningful Public URLs:
+  - Updated public link generation to use human-readable slugs (`/s/{slug}`) across creation success, space show, inbox, and QR code generator, with seamless backward-compatible fallback to `public_id`.
+- [x] Enhanced Testimonial Inbox Search & Filter:
+  - Added inline clearable search input (`X`) and active filter indicator banner with 1-click reset.
 

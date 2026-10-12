@@ -122,21 +122,25 @@ Example:
 
 for authenticated owner routes, protected by policy.
 
-Public:
+Public Collection:
 
 ```text
-/s/{public_id}
+/s/{slug}
 ```
 
-or a slug plus a server-side public identifier.
+(Primary human-readable branded URL, with `Space::resolveRouteBindingQuery` providing seamless dual-resolution fallback for `/s/{public_id}`).
 
 Embed:
 
 ```text
-/embed/{public_id}
+/embed/{slug} or /embed/{public_id}
 ```
 
-The agent should choose one consistent URL strategy and document it.
+Export & Moderation:
+
+```text
+/spaces/{space}/export (Streamed CSV download, UTF-8 BOM, Gate protected)
+```
 
 ## 5. Field configuration
 
