@@ -171,16 +171,16 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
                     </div>
                 </div>
             ) : (
-                /* Masonry Layout */
-                <div className="max-w-7xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+                /* Uniform Responsive Grid Layout (Equal Card Heights) */
+                <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
                     {testimonials.map((item) => (
                         <div
                             key={item.id}
-                            className={`break-inside-avoid rounded-2xl border p-5 flex flex-col justify-between ${cardBg} ${
-                                config.animation_enabled ? 'transition-all duration-200 hover:shadow-md' : ''
+                            className={`rounded-2xl border p-5 flex flex-col justify-between h-full min-h-[200px] ${cardBg} ${
+                                config.animation_enabled ? 'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5' : ''
                             }`}
                         >
-                            <div className="space-y-3">
+                            <div className="space-y-3 flex-1 flex flex-col">
                                 {/* Rating */}
                                 {config.display_options.show_rating && item.rating && (
                                     <div className="flex items-center gap-1">
@@ -198,13 +198,13 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
                                 )}
 
                                 {/* Testimonial Text */}
-                                <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                                <p className="text-sm leading-relaxed whitespace-pre-wrap flex-1">
                                     "{item.testimonial}"
                                 </p>
                             </div>
 
                             {/* Author Profile Footer */}
-                            <div className="flex items-center gap-3 pt-4 mt-3 border-t border-border/50">
+                            <div className="flex items-center gap-3 pt-4 mt-4 border-t border-border/50">
                                 {config.display_options.show_profile_photo && (
                                     item.profile_photo_path ? (
                                         <img

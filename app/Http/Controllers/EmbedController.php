@@ -25,7 +25,7 @@ class EmbedController extends Controller
             'layout' => 'masonry',
             'dark_mode' => false,
             'animation_enabled' => true,
-            'background_color' => '#ffffff',
+            'background_color' => 'transparent',
             'item_limit' => 20,
             'display_options' => EmbedConfiguration::DEFAULT_DISPLAY_OPTIONS,
         ]);

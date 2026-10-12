@@ -22,7 +22,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useAppearance } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
 import EmbedWall from '@/pages/embed/wall';
 import type { BreadcrumbItem } from '@/types';
 
@@ -79,11 +81,21 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
         { title: 'Embed Builder', href: `/spaces/${space.id}/embed` },
     ];
 
+    const { resolvedAppearance } = useAppearance();
+    const isInterfaceDark = resolvedAppearance === 'dark';
+
+    // Default to transparent so the embed blends with the host/interface background
+    const defaultBgColor = (!config.background_color || config.background_color === '#ffffff') && isInterfaceDark
+        ? 'transparent'
+        : (config.background_color ?? 'transparent');
+
+    const defaultDarkMode = config.dark_mode !== undefined ? config.dark_mode : isInterfaceDark;
+
     const { data, setData, put, processing, errors } = useForm({
         layout: config.layout ?? 'masonry',
-        dark_mode: config.dark_mode ?? false,
+        dark_mode: defaultDarkMode,
         animation_enabled: config.animation_enabled ?? true,
-        background_color: config.background_color ?? '#ffffff',
+        background_color: defaultBgColor,
         item_limit: config.item_limit ?? 20,
         display_options: {
             show_rating: config.display_options?.show_rating ?? true,
@@ -177,7 +189,7 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                                                 }`}
                                             >
                                                 <Grid2X2 className="h-5 w-5" />
-                                                <span className="text-xs">Masonry Grid</span>
+                                                <span className="text-xs">Responsive Grid</span>
                                             </button>
 
                                             <button
@@ -202,7 +214,16 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                                         <div className="grid grid-cols-2 gap-2.5">
                                             <button
                                                 type="button"
-                                                onClick={() => setData('dark_mode', false)}
+                                                onClick={() =>
+                                                    setData((prev) => ({
+                                                        ...prev,
+                                                        dark_mode: false,
+                                                        background_color:
+                                                            prev.background_color === '#09090b'
+                                                                ? 'transparent'
+                                                                : prev.background_color,
+                                                    }))
+                                                }
                                                 className={`flex items-center justify-center gap-2 rounded-lg border p-2.5 text-xs transition-all ${
                                                     !data.dark_mode
                                                         ? 'border-primary bg-primary/5 text-primary font-semibold'
@@ -214,7 +235,16 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
 
                                             <button
                                                 type="button"
-                                                onClick={() => setData('dark_mode', true)}
+                                                onClick={() =>
+                                                    setData((prev) => ({
+                                                        ...prev,
+                                                        dark_mode: true,
+                                                        background_color:
+                                                            prev.background_color === '#ffffff'
+                                                                ? 'transparent'
+                                                                : prev.background_color,
+                                                    }))
+                                                }
                                                 className={`flex items-center justify-center gap-2 rounded-lg border p-2.5 text-xs transition-all ${
                                                     data.dark_mode
                                                         ? 'border-primary bg-primary/5 text-primary font-semibold'
@@ -244,19 +274,29 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                                                 type="text"
                                                 value={data.background_color}
                                                 onChange={(e) => setData('background_color', e.target.value)}
-                                                placeholder="#ffffff or transparent"
+                                                placeholder="transparent or #09090b"
                                                 className="h-9 text-xs font-mono"
                                             />
                                         </div>
-                                        <div className="flex gap-1.5 pt-1">
-                                            {['#ffffff', '#f8fafc', '#09090b', 'transparent'].map((color) => (
+                                        <div className="flex flex-wrap gap-1.5 pt-1">
+                                            {[
+                                                { label: 'Interface Default', value: 'transparent' },
+                                                { label: 'Dark (#09090b)', value: '#09090b' },
+                                                { label: 'Light (#ffffff)', value: '#ffffff' },
+                                                { label: 'Slate (#f8fafc)', value: '#f8fafc' },
+                                            ].map((preset) => (
                                                 <button
-                                                    key={color}
+                                                    key={preset.value}
                                                     type="button"
-                                                    onClick={() => setData('background_color', color)}
-                                                    className="text-[10px] px-2 py-0.5 rounded border hover:bg-muted/60 text-muted-foreground"
+                                                    onClick={() => setData('background_color', preset.value)}
+                                                    className={cn(
+                                                        'text-[10px] px-2.5 py-1 rounded-md border transition-colors',
+                                                        data.background_color === preset.value
+                                                            ? 'border-primary bg-primary/10 text-primary font-medium'
+                                                            : 'border-border/70 hover:bg-muted/60 text-muted-foreground',
+                                                    )}
                                                 >
-                                                    {color}
+                                                    {preset.label}
                                                 </button>
                                             ))}
                                         </div>
@@ -425,8 +465,8 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                             <div className="flex items-center gap-2">
                                 <Eye className="h-4 w-4 text-primary" />
                                 <h2 className="text-base font-semibold">Live Interactive Preview</h2>
-                                <Badge variant="outline" className="text-xs capitalize">
-                                    {data.layout} · {data.dark_mode ? 'Dark' : 'Light'}
+                                <Badge variant="outline" className="text-xs">
+                                    {data.layout === 'masonry' ? 'Grid' : 'Carousel'} · {data.dark_mode ? 'Dark' : 'Light'}
                                 </Badge>
                             </div>
                             <span className="text-xs text-muted-foreground">
@@ -435,7 +475,7 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                         </div>
 
                         {/* Interactive Sandbox Container */}
-                        <div className="rounded-2xl border bg-muted/20 p-2 sm:p-4 min-h-[500px] overflow-hidden shadow-inner">
+                        <div className="rounded-2xl border bg-card/60 dark:bg-zinc-950/80 p-2 sm:p-4 min-h-[500px] overflow-hidden shadow-inner">
                             <EmbedWall
                                 space={{
                                     public_id: space.public_id,
