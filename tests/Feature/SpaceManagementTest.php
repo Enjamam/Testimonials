@@ -229,4 +229,21 @@ describe('Space Update and Deletion', function () {
 
         expect(Space::find($space->id))->not->toBeNull();
     });
+
+    test('space can be created and updated with all supported themes', function (string $theme) {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)->post(route('spaces.store'), [
+            'name' => "Space {$theme}",
+            'title' => "Title {$theme}",
+            'slug' => "slug-{$theme}",
+            'theme' => $theme,
+            'rating_enabled' => true,
+            'field_configuration' => Space::DEFAULT_FIELD_CONFIGURATION,
+        ])->assertSessionHasNoErrors();
+
+        $space = Space::where('slug', "slug-{$theme}")->first();
+        expect($space)->not->toBeNull()
+            ->and($space->theme)->toBe($theme);
+    })->with(Space::THEMES);
 });

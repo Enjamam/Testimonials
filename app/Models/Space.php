@@ -70,6 +70,9 @@ class Space extends Model
         'minimal-light',
         'minimal-dark',
         'soft-color',
+        'emerald-growth',
+        'midnight-indigo',
+        'sunset-rose',
     ];
 
     /**

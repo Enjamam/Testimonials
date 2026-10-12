@@ -241,11 +241,14 @@ export default function SpaceCreate({ themes, defaultFieldConfiguration }: Props
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="grid gap-3 sm:grid-cols-3">
+                            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                                 {[
-                                    { id: 'minimal-light', label: 'Minimal Light', desc: 'Crisp, clean white theme', bg: 'bg-white border-zinc-200 text-zinc-900' },
-                                    { id: 'minimal-dark', label: 'Minimal Dark', desc: 'Sleek dark obsidian styling', bg: 'bg-zinc-950 border-zinc-800 text-zinc-100' },
-                                    { id: 'soft-color', label: 'Soft Color', desc: 'Warm gentle pastel tones', bg: 'bg-indigo-50/70 border-indigo-200 text-indigo-950' },
+                                    { id: 'minimal-light', label: 'Minimal Light', desc: 'Crisp Apple-style white with subtle glow', bg: 'bg-white border-zinc-200 text-zinc-900' },
+                                    { id: 'minimal-dark', label: 'Minimal Dark', desc: 'Sleek dark obsidian tech styling', bg: 'bg-zinc-950 border-zinc-800 text-zinc-100' },
+                                    { id: 'soft-color', label: 'Soft Lavender', desc: 'Warm gentle pastel lavender & purple', bg: 'bg-indigo-50/70 border-indigo-200 text-indigo-950' },
+                                    { id: 'emerald-growth', label: 'Emerald Growth', desc: 'Vibrant mint & emerald fintech aura', bg: 'bg-emerald-950 border-emerald-800 text-emerald-100' },
+                                    { id: 'midnight-indigo', label: 'Midnight Indigo', desc: 'Deep violet gradient with neon aura', bg: 'bg-slate-950 border-indigo-800 text-indigo-100' },
+                                    { id: 'sunset-rose', label: 'Sunset Amber', desc: 'Warm rose & coral sunset glow', bg: 'bg-rose-50 border-rose-200 text-rose-950' },
                                 ].map((t) => (
                                     <div
                                         key={t.id}

@@ -41,7 +41,7 @@ interface SpaceData {
     title: string;
     subtitle: string | null;
     ask: string | null;
-    theme: 'minimal-light' | 'minimal-dark' | 'soft-color';
+    theme: 'minimal-light' | 'minimal-dark' | 'soft-color' | 'emerald-growth' | 'midnight-indigo' | 'sunset-rose';
     rating_enabled: boolean;
     field_configuration: {
         name: FieldConfig;
@@ -194,11 +194,13 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
     };
 
     // Synchronize HTML dark mode class with space theme so external dark-mode styles don't conflict
+    const isDarkTheme = ['minimal-dark', 'emerald-growth', 'midnight-indigo'].includes(space.theme);
+
     React.useEffect(() => {
         const root = document.documentElement;
         const initialDark = root.classList.contains('dark');
 
-        if (space.theme === 'minimal-dark') {
+        if (isDarkTheme) {
             root.classList.add('dark');
         } else {
             root.classList.remove('dark');
@@ -213,40 +215,65 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                 root.classList.remove('dark');
             }
         };
-    }, [space.theme]);
+    }, [isDarkTheme]);
 
-    // Theme classes configuration with explicit high-contrast styles
-    const themeStyles = {
+    // Theme classes configuration with explicit high-contrast styles & atmospheric accents
+    const themeStyles: Record<string, {
+        wrapper: string;
+        glow: string;
+        card: string;
+        heading: string;
+        label: string;
+        input: string;
+        accent: string;
+        button: string;
+        askBanner: string;
+        askBannerTitle: string;
+        badge: string;
+        muted: string;
+        consentBox: string;
+        consentLabel: string;
+        consentDesc: string;
+        checkbox: string;
+        starActive: string;
+        starInactive: string;
+        ratingDesc: string;
+        photoCard: string;
+    }> = {
         'minimal-light': {
-            wrapper: 'bg-slate-50 text-slate-900',
-            card: 'bg-white border-slate-200/90 shadow-sm text-slate-900',
+            wrapper: 'bg-slate-50/90 text-slate-900',
+            glow: 'bg-gradient-to-br from-indigo-200/40 via-slate-200/20 to-transparent',
+            card: 'bg-white/95 border-slate-200/90 shadow-xl shadow-slate-200/50 text-slate-900 backdrop-blur-md',
             heading: 'text-slate-900',
             label: 'text-slate-900 font-semibold',
             input: 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:border-indigo-600 focus-visible:ring-indigo-500/20 shadow-xs',
             accent: 'text-indigo-600',
-            button: 'bg-slate-900 hover:bg-slate-800 text-white font-medium shadow-sm active:scale-[0.99]',
+            button: 'bg-slate-900 hover:bg-slate-800 text-white font-medium shadow-md shadow-slate-900/10 active:scale-[0.99]',
             askBanner: 'bg-indigo-50/80 border-indigo-100 text-indigo-950',
             askBannerTitle: 'text-indigo-900',
+            badge: 'bg-slate-100 text-slate-700 border-slate-200',
             muted: 'text-slate-600',
             consentBox: 'bg-slate-50 border-slate-200 text-slate-900',
             consentLabel: 'text-slate-900 font-medium',
             consentDesc: 'text-slate-600',
             checkbox: 'border-slate-400 data-[state=checked]:bg-slate-900 data-[state=checked]:text-white data-[state=checked]:border-slate-900',
             starActive: 'fill-amber-400 text-amber-400',
-            starInactive: 'text-slate-300 hover:text-amber-300',
+            starInactive: 'text-slate-300 hover:text-amber-400',
             ratingDesc: 'text-slate-700 font-medium',
             photoCard: 'border-slate-300 hover:border-slate-400 bg-slate-50/60 text-slate-700',
         },
         'minimal-dark': {
             wrapper: 'bg-zinc-950 text-zinc-100',
-            card: 'bg-zinc-900 border-zinc-800 shadow-xl text-zinc-100',
+            glow: 'bg-gradient-to-br from-indigo-500/10 via-zinc-800/10 to-transparent',
+            card: 'bg-zinc-900/90 border-zinc-800 shadow-2xl text-zinc-100 backdrop-blur-md',
             heading: 'text-zinc-50',
             label: 'text-zinc-200 font-semibold',
             input: 'bg-zinc-800/90 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus-visible:border-indigo-400 focus-visible:ring-indigo-400/20 shadow-xs',
             accent: 'text-indigo-400',
-            button: 'bg-white hover:bg-zinc-200 text-zinc-950 font-semibold shadow-sm active:scale-[0.99]',
+            button: 'bg-white hover:bg-zinc-200 text-zinc-950 font-semibold shadow-md active:scale-[0.99]',
             askBanner: 'bg-zinc-800/80 border-zinc-700 text-zinc-200',
             askBannerTitle: 'text-indigo-400',
+            badge: 'bg-zinc-900 text-zinc-300 border-zinc-750',
             muted: 'text-zinc-400',
             consentBox: 'bg-zinc-800/60 border-zinc-700 text-zinc-200',
             consentLabel: 'text-zinc-100 font-medium',
@@ -258,8 +285,9 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
             photoCard: 'border-zinc-700 hover:border-zinc-600 bg-zinc-800/40 text-zinc-300',
         },
         'soft-color': {
-            wrapper: 'bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-pink-50/60 text-slate-900',
-            card: 'bg-white/95 backdrop-blur-md border-indigo-100/90 shadow-xl shadow-indigo-100/30 text-slate-900',
+            wrapper: 'bg-gradient-to-br from-indigo-50/80 via-purple-50/60 to-pink-50/80 text-slate-900',
+            glow: 'bg-gradient-to-br from-purple-300/30 via-pink-200/20 to-indigo-200/30',
+            card: 'bg-white/90 backdrop-blur-md border-indigo-100/90 shadow-2xl shadow-indigo-100/40 text-slate-900',
             heading: 'text-slate-900',
             label: 'text-slate-900 font-semibold',
             input: 'bg-white border-indigo-200 text-slate-900 placeholder:text-slate-400 focus-visible:border-purple-600 focus-visible:ring-purple-500/20 shadow-xs',
@@ -267,6 +295,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
             button: 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-md shadow-indigo-200 active:scale-[0.99]',
             askBanner: 'bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-100 text-indigo-950',
             askBannerTitle: 'text-purple-900',
+            badge: 'bg-white text-indigo-800 border-indigo-200 shadow-xs',
             muted: 'text-slate-600',
             consentBox: 'bg-indigo-50/50 border-indigo-100 text-slate-900',
             consentLabel: 'text-slate-900 font-medium',
@@ -277,7 +306,75 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
             ratingDesc: 'text-slate-700 font-medium',
             photoCard: 'border-indigo-200 hover:border-indigo-300 bg-indigo-50/30 text-slate-700',
         },
-    }[space.theme];
+        'emerald-growth': {
+            wrapper: 'bg-gradient-to-b from-slate-950 via-emerald-950/40 to-slate-950 text-emerald-50',
+            glow: 'bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent',
+            card: 'bg-slate-900/85 backdrop-blur-md border-emerald-900/60 shadow-2xl shadow-emerald-950/40 text-emerald-50',
+            heading: 'text-emerald-100',
+            label: 'text-emerald-200 font-semibold',
+            input: 'bg-slate-805/90 border-emerald-800/60 text-emerald-50 placeholder:text-emerald-600/60 focus-visible:border-emerald-400 focus-visible:ring-emerald-400/20 shadow-xs',
+            accent: 'text-emerald-400',
+            button: 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-bold shadow-lg shadow-emerald-950/40 active:scale-[0.99]',
+            askBanner: 'bg-emerald-950/50 border-emerald-800/60 text-emerald-100',
+            askBannerTitle: 'text-emerald-300',
+            badge: 'bg-emerald-950/70 text-emerald-300 border-emerald-800/70',
+            muted: 'text-emerald-300/70',
+            consentBox: 'bg-emerald-950/40 border-emerald-800/60 text-emerald-100',
+            consentLabel: 'text-emerald-100 font-medium',
+            consentDesc: 'text-emerald-300/70',
+            checkbox: 'border-emerald-600 data-[state=checked]:bg-emerald-400 data-[state=checked]:text-slate-950 data-[state=checked]:border-emerald-400',
+            starActive: 'fill-amber-400 text-amber-400',
+            starInactive: 'text-slate-700 hover:text-amber-400',
+            ratingDesc: 'text-emerald-200 font-medium',
+            photoCard: 'border-emerald-800/60 hover:border-emerald-700 bg-emerald-950/30 text-emerald-200',
+        },
+        'midnight-indigo': {
+            wrapper: 'bg-gradient-to-b from-slate-950 via-indigo-950/40 to-slate-950 text-indigo-50',
+            glow: 'bg-gradient-to-br from-indigo-500/20 via-violet-500/10 to-transparent',
+            card: 'bg-slate-900/85 backdrop-blur-md border-indigo-900/60 shadow-2xl shadow-indigo-950/40 text-indigo-50',
+            heading: 'text-indigo-100',
+            label: 'text-indigo-200 font-semibold',
+            input: 'bg-slate-805/90 border-indigo-800/60 text-indigo-50 placeholder:text-indigo-400/50 focus-visible:border-indigo-400 focus-visible:ring-indigo-400/20 shadow-xs',
+            accent: 'text-indigo-400',
+            button: 'bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-semibold shadow-lg shadow-indigo-950/40 active:scale-[0.99]',
+            askBanner: 'bg-indigo-950/50 border-indigo-800/60 text-indigo-100',
+            askBannerTitle: 'text-indigo-300',
+            badge: 'bg-indigo-950/70 text-indigo-300 border-indigo-800/70',
+            muted: 'text-indigo-300/70',
+            consentBox: 'bg-indigo-950/40 border-indigo-800/60 text-indigo-100',
+            consentLabel: 'text-indigo-100 font-medium',
+            consentDesc: 'text-indigo-300/70',
+            checkbox: 'border-indigo-600 data-[state=checked]:bg-indigo-400 data-[state=checked]:text-slate-950 data-[state=checked]:border-indigo-400',
+            starActive: 'fill-amber-400 text-amber-400',
+            starInactive: 'text-slate-700 hover:text-amber-400',
+            ratingDesc: 'text-indigo-200 font-medium',
+            photoCard: 'border-indigo-800/60 hover:border-indigo-700 bg-indigo-950/30 text-indigo-200',
+        },
+        'sunset-rose': {
+            wrapper: 'bg-gradient-to-b from-amber-50/70 via-rose-50/50 to-orange-50/70 text-stone-900',
+            glow: 'bg-gradient-to-br from-rose-300/30 via-amber-200/30 to-transparent',
+            card: 'bg-white/90 backdrop-blur-md border-rose-150 shadow-2xl shadow-rose-100/50 text-stone-900',
+            heading: 'text-stone-900',
+            label: 'text-stone-800 font-semibold',
+            input: 'bg-white border-rose-200 text-stone-900 placeholder:text-stone-400 focus-visible:border-rose-500 focus-visible:ring-rose-400/20 shadow-xs',
+            accent: 'text-rose-600',
+            button: 'bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-semibold shadow-md shadow-rose-200 active:scale-[0.99]',
+            askBanner: 'bg-gradient-to-r from-rose-50 to-amber-50 border-rose-100 text-rose-950',
+            askBannerTitle: 'text-rose-900',
+            badge: 'bg-white text-rose-800 border-rose-200 shadow-xs',
+            muted: 'text-stone-600',
+            consentBox: 'bg-rose-50/50 border-rose-100 text-stone-900',
+            consentLabel: 'text-stone-900 font-medium',
+            consentDesc: 'text-stone-600',
+            checkbox: 'border-rose-300 data-[state=checked]:bg-rose-500 data-[state=checked]:text-white data-[state=checked]:border-rose-500',
+            starActive: 'fill-amber-400 text-amber-400',
+            starInactive: 'text-stone-300 hover:text-amber-400',
+            ratingDesc: 'text-stone-700 font-medium',
+            photoCard: 'border-rose-200 hover:border-rose-300 bg-rose-50/30 text-stone-700',
+        },
+    };
+
+    const currentTheme = themeStyles[space.theme] || themeStyles['minimal-light'];
 
     // Celebratory Card subcomponent for both popup and standalone view
     const renderCelebrationView = (isModal: boolean) => (
@@ -408,9 +505,9 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
     // Standalone Thank You celebratory screen fallback (if direct navigation or page refresh)
     if ((hasSubmitted && !showCelebrationModal) || flash?.success) {
         return (
-            <div className={`min-h-screen flex items-center justify-center p-4 sm:p-6 transition-colors duration-200 ${themeStyles.wrapper}`}>
+            <div className={`min-h-screen flex items-center justify-center p-4 sm:p-6 transition-colors duration-200 ${currentTheme.wrapper}`}>
                 <Head title={`Thank You — ${space.title}`} />
-                <Card className={`max-w-xl w-full border ${themeStyles.card} shadow-xl`}>
+                <Card className={`max-w-xl w-full border ${currentTheme.card} shadow-xl`}>
                     {renderCelebrationView(false)}
                 </Card>
             </div>
@@ -420,14 +517,14 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
     // Capacity limit reached banner
     if (!can_accept_testimonials) {
         return (
-            <div className={`min-h-screen flex items-center justify-center p-4 sm:p-6 transition-colors duration-200 ${themeStyles.wrapper}`}>
+            <div className={`min-h-screen flex items-center justify-center p-4 sm:p-6 transition-colors duration-200 ${currentTheme.wrapper}`}>
                 <Head title={space.title} />
-                <Card className={`max-w-md w-full text-center p-8 ${themeStyles.card}`}>
+                <Card className={`max-w-md w-full text-center p-8 ${currentTheme.card}`}>
                     <div className="mx-auto w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4">
                         <Lock className="w-6 h-6" />
                     </div>
                     <h1 className="text-xl font-bold mb-2">{space.title}</h1>
-                    <p className={`text-sm mb-4 ${themeStyles.muted}`}>
+                    <p className={`text-sm mb-4 ${currentTheme.muted}`}>
                         This space has reached its maximum testimonial collection limit and is currently not accepting new submissions.
                     </p>
                 </Card>
@@ -436,28 +533,42 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
     }
 
     return (
-        <div className={`min-h-screen py-10 sm:py-16 px-4 sm:px-6 transition-colors duration-200 ${themeStyles.wrapper}`}>
+        <div className={`relative min-h-screen py-12 sm:py-20 px-4 sm:px-6 transition-colors duration-300 overflow-hidden ${currentTheme.wrapper}`}>
             <Head title={space.title} />
 
-            <div className="max-w-2xl mx-auto">
+            {/* Atmospheric Ambient Glow Mesh */}
+            <div
+                className={`absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 pointer-events-none opacity-40 blur-3xl -z-0 ${currentTheme.glow}`}
+                aria-hidden="true"
+            />
+
+            <div className="relative z-10 max-w-2xl mx-auto">
                 {/* Header Section */}
                 <div className="text-center mb-8 sm:mb-10">
-                    <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-3 ${themeStyles.heading}`}>
+                    <div className="inline-flex items-center justify-center gap-2 mb-3">
+                        <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full border shadow-xs ${currentTheme.badge}`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            Verified Collection Space
+                        </span>
+                    </div>
+                    <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-3 ${currentTheme.heading}`}>
                         {space.title}
                     </h1>
                     {space.subtitle && (
-                        <p className={`text-base sm:text-lg leading-relaxed max-w-xl mx-auto ${themeStyles.muted}`}>
+                        <p className={`text-base sm:text-lg leading-relaxed max-w-xl mx-auto ${currentTheme.muted}`}>
                             {space.subtitle}
                         </p>
                     )}
                 </div>
 
-                {/* Optional Ask / Prompt Banner */}
+                {/* Guiding Question / Prompt Banner */}
                 {space.ask && (
-                    <div className={`mb-8 p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 ${themeStyles.askBanner}`}>
-                        <Sparkles className={`w-5 h-5 shrink-0 mt-0.5 ${themeStyles.accent}`} />
+                    <div className={`mb-8 p-4 sm:p-5 rounded-2xl border flex items-start gap-3.5 shadow-xs backdrop-blur-xs ${currentTheme.askBanner}`}>
+                        <div className="p-2 rounded-xl bg-background/60 shadow-xs shrink-0 mt-0.5">
+                            <Sparkles className={`w-4 h-4 ${currentTheme.accent}`} />
+                        </div>
                         <div>
-                            <span className={`text-xs font-semibold uppercase tracking-wider block mb-1 opacity-80 ${themeStyles.askBannerTitle}`}>
+                            <span className={`text-xs font-semibold uppercase tracking-wider block mb-1 opacity-90 ${currentTheme.askBannerTitle}`}>
                                 What we would love to know:
                             </span>
                             <p className="text-sm sm:text-base font-medium leading-relaxed">
@@ -468,7 +579,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                 )}
 
                 {/* Main Submission Form */}
-                <Card className={`overflow-hidden border ${themeStyles.card}`}>
+                <Card className={`overflow-hidden border shadow-xl ${currentTheme.card}`}>
                     <CardContent className="p-6 sm:p-8">
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Spam Honeypot (must stay empty) */}
@@ -485,11 +596,18 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
 
                             {/* 1-5 Star Rating */}
                             {space.rating_enabled && (
-                                <div className="space-y-2">
-                                    <Label className={`text-sm font-semibold ${themeStyles.label}`}>
-                                        Your Rating <span className="text-rose-500">*</span>
-                                    </Label>
-                                    <div className="flex items-center gap-2">
+                                <div className="space-y-2.5">
+                                    <div className="flex items-center justify-between">
+                                        <Label className={`text-sm font-semibold ${currentTheme.label}`}>
+                                            Your Rating <span className="text-rose-500">*</span>
+                                        </Label>
+                                        {(hoverRating ?? data.rating) && (
+                                            <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border shadow-xs transition-all ${currentTheme.badge}`}>
+                                                {RATING_DESCRIPTIONS[hoverRating ?? data.rating ?? 5]}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
                                         {[1, 2, 3, 4, 5].map((star) => {
                                             const isActive = (hoverRating ?? data.rating ?? 0) >= star;
                                             return (
@@ -499,22 +617,17 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                                     onClick={() => setData('rating', star)}
                                                     onMouseEnter={() => setHoverRating(star)}
                                                     onMouseLeave={() => setHoverRating(null)}
-                                                    className="p-1 rounded transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                                                    className="p-1.5 rounded-lg transition-transform hover:scale-125 active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-400"
                                                     aria-label={`Rate ${star} out of 5 stars`}
                                                 >
                                                     <Star
                                                         className={`w-7 h-7 sm:w-8 sm:h-8 transition-colors ${
-                                                            isActive ? themeStyles.starActive : themeStyles.starInactive
+                                                            isActive ? currentTheme.starActive : currentTheme.starInactive
                                                         }`}
                                                     />
                                                 </button>
                                             );
                                         })}
-                                        {(hoverRating ?? data.rating) && (
-                                            <span className={`text-xs sm:text-sm font-medium ml-2 ${themeStyles.ratingDesc}`}>
-                                                {RATING_DESCRIPTIONS[hoverRating ?? data.rating ?? 5]}
-                                            </span>
-                                        )}
                                     </div>
                                     <InputError message={errors.rating} />
                                 </div>
@@ -523,10 +636,10 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                             {/* Testimonial Textarea */}
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
-                                    <Label htmlFor="testimonial" className={`text-sm font-semibold ${themeStyles.label}`}>
+                                    <Label htmlFor="testimonial" className={`text-sm font-semibold ${currentTheme.label}`}>
                                         Your Testimonial <span className="text-rose-500">*</span>
                                     </Label>
-                                    <span className={`text-xs ${themeStyles.muted}`}>
+                                    <span className={`font-mono text-xs ${data.testimonial.length > 4500 ? 'text-amber-500 font-semibold' : currentTheme.muted}`}>
                                         {data.testimonial.length} / 5000
                                     </span>
                                 </div>
@@ -535,10 +648,19 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                     value={data.testimonial}
                                     onChange={(e) => setData('testimonial', e.target.value)}
                                     placeholder="Write your review here. What problems did this solve for you? What was your overall experience?"
-                                    className={`min-h-[140px] text-base leading-relaxed ${themeStyles.input}`}
+                                    className={`min-h-[140px] text-base leading-relaxed ${currentTheme.input}`}
                                     maxLength={5000}
                                     required
                                 />
+                                <div className="flex justify-between items-center text-xs pt-0.5">
+                                    <span className={`text-[11px] ${currentTheme.muted}`}>
+                                        {data.testimonial.length === 0
+                                            ? 'Tip: Share specific results, features you loved, or how it helped.'
+                                            : data.testimonial.length < 60
+                                              ? 'Great start! A sentence or two more makes it even stronger.'
+                                              : 'Looking fantastic — thank you for the detailed feedback!'}
+                                    </span>
+                                </div>
                                 <InputError message={errors.testimonial} />
                             </div>
 
@@ -546,7 +668,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {/* Name */}
                                 <div className="space-y-1.5">
-                                    <Label htmlFor="name" className={`text-sm font-semibold ${themeStyles.label}`}>
+                                    <Label htmlFor="name" className={`text-sm font-semibold ${currentTheme.label}`}>
                                         Your Name <span className="text-rose-500">*</span>
                                     </Label>
                                     <Input
@@ -555,7 +677,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
                                         placeholder="Jane Doe"
-                                        className={themeStyles.input}
+                                        className={currentTheme.input}
                                         required
                                     />
                                     <InputError message={errors.name} />
@@ -564,10 +686,10 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                 {/* Email */}
                                 <div className="space-y-1.5">
                                     <div className="flex items-center justify-between">
-                                        <Label htmlFor="email" className={`text-sm font-semibold ${themeStyles.label}`}>
+                                        <Label htmlFor="email" className={`text-sm font-semibold ${currentTheme.label}`}>
                                             Your Email <span className="text-rose-500">*</span>
                                         </Label>
-                                        <span className={`text-[11px] flex items-center gap-1 ${themeStyles.muted}`}>
+                                        <span className={`text-[11px] flex items-center gap-1 ${currentTheme.muted}`}>
                                             <Lock className="w-3 h-3" /> Private
                                         </span>
                                     </div>
@@ -577,7 +699,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                         value={data.email}
                                         onChange={(e) => setData('email', e.target.value)}
                                         placeholder="jane@example.com"
-                                        className={themeStyles.input}
+                                        className={currentTheme.input}
                                         required
                                     />
                                     <InputError message={errors.email} />
@@ -586,7 +708,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                 {/* Optional Company Name */}
                                 {isCompanyEnabled && (
                                     <div className="space-y-1.5">
-                                        <Label htmlFor="company_name" className={`text-sm font-semibold ${themeStyles.label}`}>
+                                        <Label htmlFor="company_name" className={`text-sm font-semibold ${currentTheme.label}`}>
                                             Company / Title {isCompanyRequired && <span className="text-rose-500">*</span>}
                                         </Label>
                                         <Input
@@ -595,7 +717,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                             value={data.company_name}
                                             onChange={(e) => setData('company_name', e.target.value)}
                                             placeholder="Acme Inc. / Founder"
-                                            className={themeStyles.input}
+                                            className={currentTheme.input}
                                             required={isCompanyRequired}
                                         />
                                         <InputError message={errors.company_name} />
@@ -605,7 +727,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                 {/* Optional Social URL */}
                                 {isSocialEnabled && (
                                     <div className="space-y-1.5">
-                                        <Label htmlFor="social_url" className={`text-sm font-semibold ${themeStyles.label}`}>
+                                        <Label htmlFor="social_url" className={`text-sm font-semibold ${currentTheme.label}`}>
                                             Social Profile URL {isSocialRequired && <span className="text-rose-500">*</span>}
                                         </Label>
                                         <Input
@@ -614,7 +736,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                             value={data.social_url}
                                             onChange={(e) => setData('social_url', e.target.value)}
                                             placeholder="https://x.com/janedoe or LinkedIn"
-                                            className={themeStyles.input}
+                                            className={currentTheme.input}
                                             required={isSocialRequired}
                                         />
                                         <InputError message={errors.social_url} />
@@ -625,7 +747,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                             {/* Optional Profile Photo */}
                             {isPhotoEnabled && (
                                 <div className="space-y-2 pt-1">
-                                    <Label className={`text-sm font-semibold ${themeStyles.label}`}>
+                                    <Label className={`text-sm font-semibold ${currentTheme.label}`}>
                                         Profile Photo {isPhotoRequired && <span className="text-rose-500">*</span>}
                                     </Label>
 
@@ -640,7 +762,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                                 <p className="text-xs font-medium truncate">
                                                     {data.profile_photo?.name ?? 'Photo selected'}
                                                 </p>
-                                                <p className={`text-[11px] ${themeStyles.muted}`}>
+                                                <p className={`text-[11px] ${currentTheme.muted}`}>
                                                     JPG, PNG, or WebP (max 2MB)
                                                 </p>
                                             </div>
@@ -655,12 +777,12 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                             </Button>
                                         </div>
                                     ) : (
-                                        <label className={`border-2 border-dashed rounded-xl p-5 flex flex-col items-center justify-center cursor-pointer transition-colors ${themeStyles.photoCard}`}>
-                                            <Camera className="w-8 h-8 text-slate-400 mb-2" />
+                                        <label className={`border-2 border-dashed rounded-xl p-5 flex flex-col items-center justify-center cursor-pointer transition-colors ${currentTheme.photoCard}`}>
+                                            <Camera className="w-8 h-8 opacity-60 mb-2" />
                                             <span className="text-xs sm:text-sm font-medium">
                                                 Upload your photo
                                             </span>
-                                            <span className={`text-[11px] mt-0.5 ${themeStyles.muted}`}>
+                                            <span className={`text-[11px] mt-0.5 ${currentTheme.muted}`}>
                                                 JPG, PNG or WebP up to 2MB
                                             </span>
                                             <input
@@ -678,19 +800,19 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
 
                             {/* Mandatory Consent Checkbox */}
                             <div className="pt-2">
-                                <div className={`flex items-start space-x-3 p-3.5 rounded-lg border ${themeStyles.consentBox}`}>
+                                <div className={`flex items-start space-x-3 p-3.5 rounded-lg border ${currentTheme.consentBox}`}>
                                     <Checkbox
                                         id="consent"
                                         checked={data.consent_given}
                                         onCheckedChange={(checked) => setData('consent_given', checked === true)}
-                                        className={`mt-0.5 ${themeStyles.checkbox}`}
+                                        className={`mt-0.5 ${currentTheme.checkbox}`}
                                         required
                                     />
                                     <div className="space-y-0.5">
-                                        <Label htmlFor="consent" className={`text-xs sm:text-sm font-medium leading-snug cursor-pointer ${themeStyles.consentLabel}`}>
+                                        <Label htmlFor="consent" className={`text-xs sm:text-sm font-medium leading-snug cursor-pointer ${currentTheme.consentLabel}`}>
                                             I grant permission for this testimonial to be displayed publicly. <span className="text-rose-500">*</span>
                                         </Label>
-                                        <p className={`text-[11px] leading-relaxed ${themeStyles.consentDesc}`}>
+                                        <p className={`text-[11px] leading-relaxed ${currentTheme.consentDesc}`}>
                                             Your testimonial may appear on public websites and marketing materials. Your email address will never be shared.
                                         </p>
                                     </div>
@@ -706,7 +828,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                     className={`w-full py-5 text-base rounded-xl transition-all font-semibold ${
                                         !data.consent_given || processing
                                             ? 'opacity-40 cursor-not-allowed bg-slate-200 text-slate-500 hover:bg-slate-200 dark:bg-zinc-800 dark:text-zinc-500 border border-dashed border-slate-300 dark:border-zinc-700 shadow-none'
-                                            : `${themeStyles.button} cursor-pointer`
+                                            : `${currentTheme.button} cursor-pointer`
                                     }`}
                                 >
                                     {processing ? (
@@ -719,7 +841,7 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                                     )}
                                 </Button>
                                 {!data.consent_given && (
-                                    <p className={`text-center text-xs pt-0.5 ${themeStyles.muted}`}>
+                                    <p className={`text-center text-xs pt-0.5 ${currentTheme.muted}`}>
                                         Please grant permission above to submit your testimonial.
                                     </p>
                                 )}
@@ -728,10 +850,19 @@ export default function SpaceForm({ space, can_accept_testimonials }: PageProps)
                     </CardContent>
                 </Card>
 
-                {/* Footer Brand watermark */}
-                <div className="text-center mt-8">
-                    <p className={`text-xs flex items-center justify-center gap-1.5 ${themeStyles.muted}`}>
-                        Powered by <span className="font-semibold text-slate-700 dark:text-zinc-300">Testimonials SaaS</span>
+                {/* Trust & Security Footer */}
+                <div className="text-center mt-10 space-y-2.5">
+                    <div className={`inline-flex items-center gap-2.5 text-xs px-3.5 py-1.5 rounded-full border bg-background/50 backdrop-blur-xs ${currentTheme.muted}`}>
+                        <span className="flex items-center gap-1">
+                            <Lock className="w-3 h-3 text-emerald-500" /> 256-bit Encrypted
+                        </span>
+                        <span>•</span>
+                        <span>Spam Protected</span>
+                        <span>•</span>
+                        <span>No Account Needed</span>
+                    </div>
+                    <p className={`text-xs flex items-center justify-center gap-1.5 ${currentTheme.muted}`}>
+                        Powered by <span className="font-semibold text-foreground/80">Testimonials SaaS</span>
                     </p>
                 </div>
 
