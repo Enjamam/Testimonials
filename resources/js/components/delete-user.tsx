@@ -28,15 +28,15 @@ export default function DeleteUser() {
     const passwordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <Card className="border-red-500/20 bg-red-500/[0.02] shadow-xs">
+        <Card className="border-red-500/30 bg-red-500/[0.03] shadow-xs">
             <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 text-destructive">
+                <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
                     <AlertTriangle className="h-5 w-5 shrink-0" />
-                    <CardTitle className="text-base font-semibold text-destructive">
+                    <CardTitle className="text-base font-semibold text-red-600 dark:text-red-400">
                         Danger Zone
                     </CardTitle>
                 </div>
-                <CardDescription>
+                <CardDescription className="text-muted-foreground/90">
                     Permanently delete your account and all associated spaces, testimonials, and billing records.
                 </CardDescription>
             </CardHeader>
@@ -45,7 +45,7 @@ export default function DeleteUser() {
                     Once your account is deleted, all resources and respondent submissions are immediately purged. This operation is completely permanent and cannot be undone.
                 </p>
             </CardContent>
-            <CardFooter className="flex items-center justify-between border-t border-red-500/15 bg-red-500/[0.04] px-6 py-3.5">
+            <CardFooter className="flex items-center justify-between border-t border-red-500/20 bg-red-500/[0.05] px-6 py-3.5">
                 <span className="text-xs text-muted-foreground">
                     Irreversible account action
                 </span>

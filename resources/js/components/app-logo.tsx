@@ -6,7 +6,7 @@ export default function AppLogo() {
 
     return (
         <div className="flex items-center gap-2.5">
-            <div className="relative flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg shadow-sm shadow-emerald-500/20 ring-1 ring-white/10 overflow-hidden">
+            <div className="relative flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg shadow-sm shadow-primary/25 ring-1 ring-white/10 overflow-hidden">
                 <AppLogoIcon className="size-8" />
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">

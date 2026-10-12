@@ -123,7 +123,7 @@ export default function SpacesIndex({ spaces, usage }: Props) {
                             <Card key={space.id} className="flex flex-col justify-between transition-shadow hover:shadow-md">
                                 <CardHeader>
                                     <div className="flex items-start justify-between gap-2">
-                                        <CardTitle className="line-clamp-1 text-lg font-semibold">
+                                        <CardTitle className="text-lg font-semibold truncate flex-1 min-w-0" title={space.name}>
                                             <Link href={`/spaces/${space.id}`} className="hover:underline">
                                                 {space.name}
                                             </Link>

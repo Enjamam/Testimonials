@@ -33,7 +33,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
-        <div className="px-4 py-8 max-w-5xl mx-auto">
+        <div className="px-4 py-8 max-w-6xl mx-auto">
             <div className="mb-6">
                 <Heading
                     title="Account Settings"
@@ -43,7 +43,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
             <Separator className="mb-8" />
 
-            <div className="flex flex-col lg:flex-row lg:space-x-12">
+            <div className="flex flex-col lg:flex-row lg:space-x-10">
                 <aside className="w-full lg:w-56 shrink-0">
                     <nav
                         className="flex flex-col space-y-1 sticky top-6"
@@ -78,7 +78,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
                 <Separator className="my-6 lg:hidden" />
 
-                <main className="flex-1 min-w-0 max-w-2xl">
+                <main className="flex-1 min-w-0">
                     <div className="space-y-8 animate-in fade-in-50 duration-300 slide-in-from-bottom-1">
                         {children}
                     </div>

@@ -282,7 +282,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                                 {!summary.is_pro && (
                                     <Button
                                         size="sm"
-                                        className="bg-indigo-600 hover:bg-indigo-700 text-white gap-1.5"
+                                        className="bg-primary hover:bg-primary/90 text-primary-foreground gap-1.5"
                                         onClick={handleCheckout}
                                         disabled={isCheckingOut}
                                     >
@@ -306,7 +306,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                                 </div>
                                 <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
                                     <div
-                                        className="h-full bg-indigo-600 transition-all duration-300"
+                                        className="h-full bg-primary transition-all duration-300"
                                         style={{ width: `${spacePercent}%` }}
                                     />
                                 </div>
@@ -467,7 +467,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                                 <ul className="space-y-2.5 text-xs text-foreground/90">
                                     {plans.pro.features.map((feature, idx) => (
                                         <li key={idx} className="flex items-start gap-2.5">
-                                            <div className="rounded-full bg-indigo-100 p-0.5 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 shrink-0 mt-0.5">
+                                            <div className="rounded-full bg-primary/10 p-0.5 text-primary shrink-0 mt-0.5">
                                                 <Check className="h-3 w-3 stroke-[2.5]" />
                                             </div>
                                             <span className="font-medium">{feature}</span>
@@ -481,7 +481,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                             {summary.is_pro ? (
                                 <Button
                                     variant="outline"
-                                    className="w-full text-xs border-indigo-200 dark:border-indigo-800"
+                                    className="w-full text-xs border-border hover:bg-muted/50"
                                     onClick={handleOpenPortal}
                                     disabled={isOpeningPortal}
                                 >
@@ -490,11 +490,11 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                                 </Button>
                             ) : (
                                 <Button
-                                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md text-xs font-semibold gap-1.5"
+                                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md text-xs font-semibold gap-1.5"
                                     onClick={handleCheckout}
                                     disabled={isCheckingOut}
                                 >
-                                    <Zap className="h-3.5 w-3.5 fill-white" />
+                                    <Zap className="h-3.5 w-3.5 fill-current" />
                                     {isCheckingOut ? 'Connecting to Stripe...' : 'Upgrade to Pro Now'}
                                     <ArrowRight className="h-3.5 w-3.5 ml-0.5" />
                                 </Button>
@@ -506,7 +506,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                 {/* Trust & FAQ Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
                     <div className="flex items-start gap-3 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 bg-muted/20">
-                        <Shield className="h-5 w-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                        <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                         <div className="space-y-1">
                             <h4 className="text-xs font-semibold">Cancel Anytime</h4>
                             <p className="text-[11px] text-muted-foreground leading-relaxed">
@@ -516,7 +516,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                     </div>
 
                     <div className="flex items-start gap-3 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 bg-muted/20">
-                        <CreditCard className="h-5 w-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                        <CreditCard className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                         <div className="space-y-1">
                             <h4 className="text-xs font-semibold">Bank-Grade Security</h4>
                             <p className="text-[11px] text-muted-foreground leading-relaxed">
@@ -526,7 +526,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
                     </div>
 
                     <div className="flex items-start gap-3 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 bg-muted/20">
-                        <HelpCircle className="h-5 w-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                        <HelpCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                         <div className="space-y-1">
                             <h4 className="text-xs font-semibold">Data Retention Guarantee</h4>
                             <p className="text-[11px] text-muted-foreground leading-relaxed">
