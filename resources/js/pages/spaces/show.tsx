@@ -196,9 +196,9 @@ export default function SpaceShow({ space, publicUrl }: Props) {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold font-mono text-base truncate">
-                                /s/{space.public_id}
+                                /s/{space.slug || space.public_id}
                             </div>
-                            <p className="text-muted-foreground text-xs">Direct public access code</p>
+                            <p className="text-muted-foreground text-xs">Direct public collection link</p>
                         </CardContent>
                     </Card>
                 </div>

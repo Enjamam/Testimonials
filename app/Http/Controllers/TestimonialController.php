@@ -76,7 +76,7 @@ class TestimonialController extends Controller
                 'search' => $search,
             ],
             'counts' => $counts,
-            'publicUrl' => url('/s/'.$space->public_id),
+            'publicUrl' => route('public.spaces.show', $space->slug ?: $space->public_id),
         ]);
     }
 

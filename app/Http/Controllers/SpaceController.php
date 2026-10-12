@@ -80,7 +80,7 @@ class SpaceController extends Controller
 
         return Inertia::render('spaces/success', [
             'space' => $space,
-            'publicUrl' => url('/s/'.$space->public_id),
+            'publicUrl' => route('public.spaces.show', $space->slug ?: $space->public_id),
         ]);
     }
 
@@ -98,7 +98,7 @@ class SpaceController extends Controller
 
         return Inertia::render('spaces/show', [
             'space' => $space,
-            'publicUrl' => url('/s/'.$space->public_id),
+            'publicUrl' => route('public.spaces.show', $space->slug ?: $space->public_id),
         ]);
     }
 
