@@ -268,6 +268,22 @@ You will immediately see the pre-populated **CloudScale DevOps** collection spac
 
 ---
 
+## 🌐 Key Application URLs to Explore
+
+Once running at `http://localhost:8000` (or `http://127.0.0.1:8000`), visit these primary pages:
+
+| Page | Local URL | What to Test |
+|---|---|---|
+| **📊 Dashboard** | [`/dashboard`](http://localhost:8000/dashboard) | Metric KPIs, testimonials chart, recent space activity |
+| **🏢 Spaces List** | [`/spaces`](http://localhost:8000/spaces) | Manage, configure, and create testimonial collection spaces |
+| **✍️ Public Form** | [`/s/cloudscale`](http://localhost:8000/s/cloudscale) | Public review submission with consent gating & celebratory modal |
+| **💖 Wall of Love Demo** | [`/embed-demo.html`](http://localhost:8000/embed-demo.html) | Live showcase of zero-dependency masonry & carousel widgets |
+| **💳 Billing & Plans** | [`/billing`](http://localhost:8000/billing) | Stripe subscription tiers, usage limits, and plan sync |
+| **👤 Profile & Avatar** | [`/settings/profile`](http://localhost:8000/settings/profile) | Avatar photo upload, instant preview, name/email settings |
+| **🎨 Appearance Studio** | [`/settings/appearance`](http://localhost:8000/settings/appearance) | Light/Dark/System themes, 7 accent colors & corner radii |
+
+---
+
 ## 💳 Stripe Billing & Webhook Configuration (Optional)
 
 To enable Pro subscription upgrades and customer portal management locally:
