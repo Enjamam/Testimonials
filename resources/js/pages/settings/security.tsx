@@ -85,33 +85,35 @@ export default function Security(props: Props) {
                                     <InputError message={errors.current_password} />
                                 </div>
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="password">New password</Label>
-                                    <PasswordInput
-                                        id="password"
-                                        ref={passwordInput}
-                                        name="password"
-                                        autoComplete="new-password"
-                                        placeholder="Enter new password"
-                                        passwordrules={props.passwordRules}
-                                        className="h-10"
-                                    />
-                                    <InputError message={errors.password} />
-                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="password">New password</Label>
+                                        <PasswordInput
+                                            id="password"
+                                            ref={passwordInput}
+                                            name="password"
+                                            autoComplete="new-password"
+                                            placeholder="Enter new password"
+                                            passwordrules={props.passwordRules}
+                                            className="h-10"
+                                        />
+                                        <InputError message={errors.password} />
+                                    </div>
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="password_confirmation">
-                                        Confirm password
-                                    </Label>
-                                    <PasswordInput
-                                        id="password_confirmation"
-                                        name="password_confirmation"
-                                        autoComplete="new-password"
-                                        placeholder="Confirm new password"
-                                        passwordrules={props.passwordRules}
-                                        className="h-10"
-                                    />
-                                    <InputError message={errors.password_confirmation} />
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="password_confirmation">
+                                            Confirm password
+                                        </Label>
+                                        <PasswordInput
+                                            id="password_confirmation"
+                                            name="password_confirmation"
+                                            autoComplete="new-password"
+                                            placeholder="Confirm new password"
+                                            passwordrules={props.passwordRules}
+                                            className="h-10"
+                                        />
+                                        <InputError message={errors.password_confirmation} />
+                                    </div>
                                 </div>
                             </CardContent>
 

@@ -152,7 +152,7 @@ export default function BillingIndex({ plans, summary, status, statusType, error
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Billing & Plans" />
 
-            <div className="flex h-full flex-1 flex-col gap-8 p-4 md:p-6 max-w-6xl mx-auto w-full">
+            <div className="flex h-full flex-1 flex-col gap-6 md:gap-8 p-4 md:p-6 w-full">
                 {/* Header Section */}
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-3">

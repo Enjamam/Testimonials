@@ -102,7 +102,7 @@ export default function SpaceEdit({ space, themes, defaultFieldConfiguration }: 
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={`Edit ${space.name}`} />
 
-            <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-4 md:p-6">
+            <div className="flex w-full flex-col gap-6 p-4 md:p-6">
                 <div className="flex items-center gap-4">
                     <Button variant="ghost" size="icon" asChild>
                         <Link href={`/spaces/${space.id}`}>

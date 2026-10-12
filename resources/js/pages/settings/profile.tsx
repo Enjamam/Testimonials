@@ -210,7 +210,9 @@ export default function Profile({
                             </div>
                         </div>
 
-                        {/* Name Input */}
+                        {/* Name and Email Inputs in Responsive Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Name Input */}
                         <div className="grid gap-2">
                             <Label htmlFor="name" className="text-sm font-medium">
                                 Full Name
@@ -276,6 +278,7 @@ export default function Profile({
                                     )}
                                 </div>
                             )}
+                        </div>
                         </div>
                     </CardContent>
 
