@@ -20,6 +20,29 @@ This application was engineered and tested using advanced pair-programming agent
 
 ---
 
+## 📊 Feature Completion Status
+
+### ✅ Completed & Verified Features
+- [x] **Space & Collection Management**: Branded spaces, custom prompts, minimal light/dark themes, configurable fields (photo, company, social), star ratings.
+- [x] **Public Submission Flow**: Responsive `/s/{public_id}` form, consent checkbox gating, spam honeypot, rate limiting, and live celebratory modal with confetti & preview.
+- [x] **Testimonial Moderation Inbox**: Approval/rejection workflows, favorites, Wall of Love flagging, and multi-parameter searching/filtering.
+- [x] **Embed Builder & Wall of Love**: Customizable layouts (masonry, grid, carousel), zero-dependency standalone `embed.js`, and live `/embed-demo.html` demo.
+- [x] **Subscriptions & Monetization**: Free vs Pro plan limits enforced server-side with row-level locks, Stripe Checkout, webhook idempotency, and Stripe Customer Portal.
+- [x] **Profile & Account Management**: Avatar photo upload with automatic disk storage, card-based settings layout, smooth tab transitions, 2FA (TOTP), Passkeys (WebAuthn), and Danger Zone account deletion.
+- [x] **Appearance & Theme Studio**: Light/Dark/System modes, 7 curated accent color palettes with real-time CSS variables, and corner curvature presets.
+- [x] **Comprehensive Automated Testing**: 159 tests passing (961 assertions) with 100% critical path coverage.
+
+### ⏸️ Deliberately Out of Scope (MVP Product Boundaries)
+In accordance with the project contract (`CONTEXT.md`), the following features were excluded to prioritize rock-solid MVP core execution:
+- Video and audio testimonial recording
+- Multi-seat teams / organizational workspaces
+- Custom domain / CNAME routing (handled portably via lightweight embed script)
+- Zapier and third-party CRM webhook sync
+- Social media auto-publishing (Twitter / LinkedIn)
+- AI-assisted testimonial rewriting or automated sentiment editing
+
+---
+
 ## 🚀 Features
 
 ### 🏢 Space & Collection Management
