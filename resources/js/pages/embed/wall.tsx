@@ -23,6 +23,9 @@ interface EmbedConfig {
         show_rating: boolean;
         show_profile_photo: boolean;
         show_company_name: boolean;
+        min_rating?: number;
+        card_radius?: string;
+        card_shadow?: string;
     };
 }
 
@@ -47,9 +50,11 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
     };
 
     const isDark = config.dark_mode;
+    const cardRadius = config.display_options?.card_radius || 'rounded-2xl';
+    const cardShadow = config.display_options?.card_shadow || (isDark ? 'shadow-md' : 'shadow-xs');
     const cardBg = isDark
-        ? 'bg-zinc-900/90 border-zinc-800 text-zinc-100 shadow-md'
-        : 'bg-white border-slate-200 text-slate-900 shadow-xs';
+        ? `bg-zinc-900/90 border-zinc-800 text-zinc-100 ${cardShadow}`
+        : `bg-white border-slate-200 text-slate-900 ${cardShadow}`;
     const mutedText = isDark ? 'text-zinc-400' : 'text-slate-500';
 
     return (
@@ -104,7 +109,7 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
                         {testimonials.map((item) => (
                             <div
                                 key={item.id}
-                                className={`w-[300px] sm:w-[340px] shrink-0 snap-start rounded-2xl border p-5 flex flex-col justify-between ${cardBg} ${
+                                className={`w-[300px] sm:w-[340px] shrink-0 snap-start ${cardRadius} border p-5 flex flex-col justify-between ${cardBg} ${
                                     config.animation_enabled ? 'transition-transform duration-200 hover:-translate-y-1' : ''
                                 }`}
                             >
@@ -176,7 +181,7 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
                     {testimonials.map((item) => (
                         <div
                             key={item.id}
-                            className={`rounded-2xl border p-5 flex flex-col justify-between h-full min-h-[200px] ${cardBg} ${
+                            className={`${cardRadius} border p-5 flex flex-col justify-between h-full min-h-[200px] ${cardBg} ${
                                 config.animation_enabled ? 'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5' : ''
                             }`}
                         >

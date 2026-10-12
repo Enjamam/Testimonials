@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Testimonial Inbox & Moderation
     Route::get('spaces/{space}/inbox', [TestimonialController::class, 'index'])->name('spaces.inbox');
+    Route::get('spaces/{space}/export', [TestimonialController::class, 'exportCsv'])->name('spaces.testimonials.export');
     Route::patch('spaces/{space}/testimonials/{testimonial}', [TestimonialController::class, 'update'])->name('spaces.testimonials.update');
     Route::delete('spaces/{space}/testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('spaces.testimonials.destroy');
 

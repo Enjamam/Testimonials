@@ -39,12 +39,15 @@ class EmbedConfiguration extends Model
     /**
      * Default display options.
      *
-     * @var array<string, bool>
+     * @var array<string, mixed>
      */
     public const array DEFAULT_DISPLAY_OPTIONS = [
         'show_rating' => true,
         'show_profile_photo' => true,
         'show_company_name' => true,
+        'min_rating' => 0,
+        'card_radius' => 'rounded-2xl',
+        'card_shadow' => 'shadow-xs',
     ];
 
     /**

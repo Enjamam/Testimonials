@@ -8,11 +8,13 @@ import {
     Heart,
     Inbox,
     MessageSquare,
+    QrCode,
     Settings,
     Star,
     Trash2,
 } from 'lucide-react';
 import React, { useState } from 'react';
+import QrCodeDialog from '@/components/qr-code-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,6 +43,7 @@ interface Props {
 
 export default function SpaceShow({ space, publicUrl }: Props) {
     const [copied, setCopied] = useState(false);
+    const [qrOpen, setQrOpen] = useState(false);
 
     const handleCopy = async () => {
         try {
@@ -126,6 +129,11 @@ export default function SpaceShow({ space, publicUrl }: Props) {
                         </div>
 
                         <div className="flex items-center gap-2">
+                            <Button size="sm" variant="outline" onClick={() => setQrOpen(true)}>
+                                <QrCode className="mr-1.5 h-3.5 w-3.5" />
+                                QR Code
+                            </Button>
+
                             <Button size="sm" variant={copied ? 'default' : 'secondary'} onClick={handleCopy}>
                                 {copied ? (
                                     <>
@@ -149,6 +157,13 @@ export default function SpaceShow({ space, publicUrl }: Props) {
                         </div>
                     </CardContent>
                 </Card>
+
+                <QrCodeDialog
+                    open={qrOpen}
+                    onOpenChange={setQrOpen}
+                    url={publicUrl}
+                    spaceName={space.name}
+                />
 
                 {/* Quick Stats Grid */}
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

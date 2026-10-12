@@ -51,6 +51,9 @@ interface EmbedConfigData {
         show_rating: boolean;
         show_profile_photo: boolean;
         show_company_name: boolean;
+        min_rating?: number;
+        card_radius?: string;
+        card_shadow?: string;
     };
 }
 
@@ -101,6 +104,9 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
             show_rating: config.display_options?.show_rating ?? true,
             show_profile_photo: config.display_options?.show_profile_photo ?? true,
             show_company_name: config.display_options?.show_company_name ?? true,
+            min_rating: config.display_options?.min_rating ?? 0,
+            card_radius: config.display_options?.card_radius ?? 'rounded-2xl',
+            card_shadow: config.display_options?.card_shadow ?? 'shadow-xs',
         },
     });
 
@@ -123,6 +129,14 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
             preserveScroll: true,
         });
     };
+
+    const filteredPreviewTestimonials = testimonials
+        .filter((t) => {
+            const min = data.display_options.min_rating ?? 0;
+            if (min <= 0) return true;
+            return (t.rating ?? 0) >= min;
+        })
+        .slice(0, data.item_limit);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -391,6 +405,113 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                                         </div>
                                     </div>
 
+                                    {/* Minimum Star Rating Filter */}
+                                    {space.rating_enabled && (
+                                        <div className="space-y-2 pt-2 border-t border-border/60">
+                                            <div className="flex justify-between items-center text-xs">
+                                                <Label className="font-semibold">Minimum Star Rating</Label>
+                                                <span className="text-[11px] text-muted-foreground">Filter low reviews</span>
+                                            </div>
+                                            <div className="grid grid-cols-4 gap-1.5">
+                                                {[
+                                                    { label: 'All Reviews', value: 0 },
+                                                    { label: '3+ ★', value: 3 },
+                                                    { label: '4+ ★', value: 4 },
+                                                    { label: '5 ★ Only', value: 5 },
+                                                ].map((opt) => (
+                                                    <button
+                                                        key={opt.value}
+                                                        type="button"
+                                                        onClick={() =>
+                                                            setData('display_options', {
+                                                                ...data.display_options,
+                                                                min_rating: opt.value,
+                                                            })
+                                                        }
+                                                        className={cn(
+                                                            'text-[11px] py-1.5 px-1.5 rounded-lg border font-medium transition-all text-center',
+                                                            (data.display_options.min_rating ?? 0) === opt.value
+                                                                ? 'border-primary bg-primary/10 text-primary font-bold shadow-2xs'
+                                                                : 'border-border/70 hover:bg-muted/50 text-muted-foreground'
+                                                        )}
+                                                    >
+                                                        {opt.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Card Corner Radius */}
+                                    <div className="space-y-2 pt-2 border-t border-border/60">
+                                        <div className="flex justify-between items-center text-xs">
+                                            <Label className="font-semibold">Card Corner Radius</Label>
+                                            <span className="text-[11px] text-muted-foreground">Border style</span>
+                                        </div>
+                                        <div className="grid grid-cols-4 gap-1.5">
+                                            {[
+                                                { label: 'Sharp', value: 'rounded-none' },
+                                                { label: 'Classic', value: 'rounded-lg' },
+                                                { label: 'Smooth', value: 'rounded-2xl' },
+                                                { label: 'Pill', value: 'rounded-3xl' },
+                                            ].map((opt) => (
+                                                <button
+                                                    key={opt.value}
+                                                    type="button"
+                                                    onClick={() =>
+                                                        setData('display_options', {
+                                                            ...data.display_options,
+                                                            card_radius: opt.value,
+                                                        })
+                                                    }
+                                                    className={cn(
+                                                        'text-[11px] py-1.5 px-1.5 rounded-lg border font-medium transition-all text-center',
+                                                        (data.display_options.card_radius ?? 'rounded-2xl') === opt.value
+                                                            ? 'border-primary bg-primary/10 text-primary font-bold shadow-2xs'
+                                                            : 'border-border/70 hover:bg-muted/50 text-muted-foreground'
+                                                    )}
+                                                >
+                                                    {opt.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Card Shadow Elevation */}
+                                    <div className="space-y-2 pt-2 border-t border-border/60">
+                                        <div className="flex justify-between items-center text-xs">
+                                            <Label className="font-semibold">Elevation & Shadow</Label>
+                                            <span className="text-[11px] text-muted-foreground">Depth style</span>
+                                        </div>
+                                        <div className="grid grid-cols-4 gap-1.5">
+                                            {[
+                                                { label: 'Flat', value: 'shadow-none' },
+                                                { label: 'Subtle', value: 'shadow-xs' },
+                                                { label: 'Elevated', value: 'shadow-md' },
+                                                { label: 'Floating', value: 'shadow-xl' },
+                                            ].map((opt) => (
+                                                <button
+                                                    key={opt.value}
+                                                    type="button"
+                                                    onClick={() =>
+                                                        setData('display_options', {
+                                                            ...data.display_options,
+                                                            card_shadow: opt.value,
+                                                        })
+                                                    }
+                                                    className={cn(
+                                                        'text-[11px] py-1.5 px-1.5 rounded-lg border font-medium transition-all text-center',
+                                                        (data.display_options.card_shadow ?? 'shadow-xs') === opt.value
+                                                            ? 'border-primary bg-primary/10 text-primary font-bold shadow-2xs'
+                                                            : 'border-border/70 hover:bg-muted/50 text-muted-foreground'
+                                                    )}
+                                                >
+                                                    {opt.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
                                     {/* Save Button */}
                                     <Button type="submit" disabled={processing} className="w-full">
                                         {processing ? 'Saving...' : 'Save Embed Configuration'}
@@ -470,7 +591,7 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                                 </Badge>
                             </div>
                             <span className="text-xs text-muted-foreground">
-                                {testimonials.length} public {testimonials.length === 1 ? 'testimonial' : 'testimonials'}
+                                {filteredPreviewTestimonials.length} matching {filteredPreviewTestimonials.length === 1 ? 'testimonial' : 'testimonials'}
                             </span>
                         </div>
 
@@ -490,7 +611,7 @@ export default function SpaceEmbedBuilder({ space, config, testimonials, embedUr
                                     item_limit: data.item_limit,
                                     display_options: data.display_options,
                                 }}
-                                testimonials={testimonials.slice(0, data.item_limit)}
+                                testimonials={filteredPreviewTestimonials}
                             />
                         </div>
                     </div>

@@ -28,11 +28,17 @@ class PublicEmbedController extends Controller
         ]);
 
         $displayOptions = $config->display_options ?? EmbedConfiguration::DEFAULT_DISPLAY_OPTIONS;
+        $minRating = (int) ($displayOptions['min_rating'] ?? 0);
 
         // Query strictly eligible testimonials.
         // SECURITY INVARIANT: email is excluded, unconsented/hidden/deleted are excluded!
-        $testimonials = $space->testimonials()
-            ->publicWallOfLove()
+        $query = $space->testimonials()->publicWallOfLove();
+
+        if ($minRating > 0) {
+            $query->where('rating', '>=', $minRating);
+        }
+
+        $testimonials = $query
             ->orderByDesc('is_favorite')
             ->orderByDesc('submitted_at')
             ->orderByDesc('created_at')

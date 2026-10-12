@@ -301,3 +301,39 @@ test('updating testimonial with mismatched space returns 404', function () {
 
     $response->assertNotFound();
 });
+
+test('owner can export testimonials as a streamed CSV file', function () {
+    $user = User::factory()->create();
+    $space = Space::factory()->for($user)->create([
+        'name' => 'Acme SaaS',
+    ]);
+
+    Testimonial::factory()->for($space)->create([
+        'name' => 'Alice Walker',
+        'email' => 'alice@example.com',
+        'testimonial' => 'Fantastic product experience!',
+        'rating' => 5,
+        'consent_given' => true,
+    ]);
+
+    $response = $this->actingAs($user)->get(route('spaces.testimonials.export', $space));
+
+    $response->assertOk();
+    $response->assertHeader('content-type', 'text/csv; charset=UTF-8');
+    expect($response->headers->get('content-disposition'))->toContain('attachment; filename="testimonials-acme-saas-');
+
+    $content = $response->streamedContent();
+    expect($content)->toContain('Alice Walker')
+        ->and($content)->toContain('alice@example.com')
+        ->and($content)->toContain('Fantastic product experience!');
+});
+
+test('non-owner cannot export testimonials of another space', function () {
+    $owner = User::factory()->create();
+    $intruder = User::factory()->create();
+    $space = Space::factory()->for($owner)->create();
+
+    $response = $this->actingAs($intruder)->get(route('spaces.testimonials.export', $space));
+
+    $response->assertForbidden();
+});

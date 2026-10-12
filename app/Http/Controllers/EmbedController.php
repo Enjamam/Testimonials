@@ -30,9 +30,17 @@ class EmbedController extends Controller
             'display_options' => EmbedConfiguration::DEFAULT_DISPLAY_OPTIONS,
         ]);
 
+        $minRating = (int) ($config->display_options['min_rating'] ?? 0);
+
         // Fetch eligible public testimonials for live builder preview (Email excluded!)
-        $testimonials = $space->testimonials()
-            ->publicWallOfLove()
+        $testimonialsQuery = $space->testimonials()
+            ->publicWallOfLove();
+
+        if ($minRating > 0) {
+            $testimonialsQuery->where('rating', '>=', $minRating);
+        }
+
+        $testimonials = $testimonialsQuery
             ->orderByDesc('is_favorite')
             ->orderByDesc('submitted_at')
             ->orderByDesc('created_at')

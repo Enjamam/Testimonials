@@ -238,3 +238,45 @@ test('public embed respects display_options by masking disabled fields', functio
         ->where('testimonials.0.rating', null)
     );
 });
+
+test('public embed wall filters out testimonials below min_rating', function () {
+    $space = Space::factory()->create(['rating_enabled' => true]);
+    $space->embedConfiguration()->create([
+        'display_options' => [
+            'show_rating' => true,
+            'show_profile_photo' => true,
+            'show_company_name' => true,
+            'min_rating' => 4,
+            'card_radius' => 'rounded-3xl',
+            'card_shadow' => 'shadow-md',
+        ],
+    ]);
+
+    // 5-star testimonial (should be visible)
+    Testimonial::factory()->for($space)->create([
+        'name' => 'High Rater',
+        'rating' => 5,
+        'is_wall_of_love' => true,
+        'consent_given' => true,
+        'is_hidden' => false,
+    ]);
+
+    // 3-star testimonial (should be filtered out by min_rating = 4)
+    Testimonial::factory()->for($space)->create([
+        'name' => 'Low Rater',
+        'rating' => 3,
+        'is_wall_of_love' => true,
+        'consent_given' => true,
+        'is_hidden' => false,
+    ]);
+
+    $response = $this->get(route('public.embed.show', $space->public_id));
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $page) => $page
+        ->has('testimonials', 1)
+        ->where('testimonials.0.name', 'High Rater')
+        ->where('config.display_options.min_rating', 4)
+        ->where('config.display_options.card_radius', 'rounded-3xl')
+    );
+});

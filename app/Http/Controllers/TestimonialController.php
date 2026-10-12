@@ -8,8 +8,10 @@ use App\Models\Testimonial;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TestimonialController extends Controller
 {
@@ -124,5 +126,74 @@ class TestimonialController extends Controller
         $testimonial->delete();
 
         return back()->with('success', 'Testimonial deleted successfully.');
+    }
+
+    /**
+     * Export all space testimonials to a clean CSV file.
+     */
+    public function exportCsv(Request $request, Space $space): StreamedResponse
+    {
+        Gate::authorize('view', $space);
+
+        $testimonials = $space->testimonials()
+            ->orderByDesc('submitted_at')
+            ->orderByDesc('created_at')
+            ->get();
+
+        $filename = 'testimonials-'.Str::slug($space->name).'-'.now()->format('Y-m-d').'.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $callback = function () use ($testimonials): void {
+            $handle = fopen('php://output', 'w');
+            if ($handle === false) {
+                return;
+            }
+
+            // UTF-8 BOM for Microsoft Excel compatibility
+            fwrite($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, [
+                'ID',
+                'Name',
+                'Email',
+                'Company Name',
+                'Rating',
+                'Testimonial',
+                'Consent Given',
+                'Wall of Love',
+                'Favorite',
+                'Hidden',
+                'Submitted At',
+                'Created At',
+            ]);
+
+            foreach ($testimonials as $item) {
+                fputcsv($handle, [
+                    $item->id,
+                    $item->name,
+                    $item->email,
+                    $item->company_name ?? '',
+                    $item->rating ?? '',
+                    $item->testimonial,
+                    $item->consent_given ? 'Yes' : 'No',
+                    $item->is_wall_of_love ? 'Yes' : 'No',
+                    $item->is_favorite ? 'Yes' : 'No',
+                    $item->is_hidden ? 'Yes' : 'No',
+                    $item->submitted_at?->toIso8601String() ?? '',
+                    $item->created_at?->toIso8601String() ?? '',
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

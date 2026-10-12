@@ -38,6 +38,9 @@ class UpdateEmbedConfigurationRequest extends FormRequest
             'display_options.show_rating' => ['required', 'boolean'],
             'display_options.show_profile_photo' => ['required', 'boolean'],
             'display_options.show_company_name' => ['required', 'boolean'],
+            'display_options.min_rating' => ['nullable', 'integer', 'between:0,5'],
+            'display_options.card_radius' => ['nullable', 'string', 'max:50'],
+            'display_options.card_shadow' => ['nullable', 'string', 'max:50'],
         ];
     }
 }

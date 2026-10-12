@@ -3,6 +3,7 @@ import {
     ArrowLeft,
     Check,
     Copy,
+    Download,
     Edit3,
     ExternalLink,
     Eye,
@@ -11,14 +12,17 @@ import {
     Inbox as InboxIcon,
     Lock,
     MessageSquare,
+    QrCode,
     Search,
     ShieldAlert,
     ShieldCheck,
     Star,
     Trash2,
+    X,
 } from 'lucide-react';
 import React, { useState } from 'react';
 
+import QrCodeDialog from '@/components/qr-code-dialog';
 import InputError from '@/components/input-error';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -99,6 +103,7 @@ interface Props {
 
 export default function SpaceInbox({ space, testimonials, filters, counts, publicUrl }: Props) {
     const [copied, setCopied] = useState(false);
+    const [qrOpen, setQrOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState(filters.search ?? '');
     const [editingTestimonial, setEditingTestimonial] = useState<TestimonialItem | null>(null);
     const [editText, setEditText] = useState('');
@@ -154,6 +159,32 @@ export default function SpaceInbox({ space, testimonials, filters, counts, publi
                 filter: filters.filter,
                 rating: filters.rating,
                 search: searchQuery || undefined,
+            },
+            { preserveState: true, replace: true }
+        );
+    };
+
+    const handleClearSearch = () => {
+        setSearchQuery('');
+        router.get(
+            `/spaces/${space.id}/inbox`,
+            {
+                filter: filters.filter,
+                rating: filters.rating,
+                search: undefined,
+            },
+            { preserveState: true, replace: true }
+        );
+    };
+
+    const handleClearAllFilters = () => {
+        setSearchQuery('');
+        router.get(
+            `/spaces/${space.id}/inbox`,
+            {
+                filter: 'all',
+                rating: undefined,
+                search: undefined,
             },
             { preserveState: true, replace: true }
         );
@@ -259,7 +290,19 @@ export default function SpaceInbox({ space, testimonials, filters, counts, publi
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <Button variant="outline" size="sm" asChild>
+                            <a href={`/spaces/${space.id}/export`} download>
+                                <Download className="mr-1.5 h-3.5 w-3.5" />
+                                Export CSV
+                            </a>
+                        </Button>
+
+                        <Button variant="outline" size="sm" onClick={() => setQrOpen(true)}>
+                            <QrCode className="mr-1.5 h-3.5 w-3.5" />
+                            QR Code
+                        </Button>
+
                         <Button variant="outline" size="sm" onClick={handleCopy}>
                             {copied ? (
                                 <>
@@ -342,18 +385,60 @@ export default function SpaceInbox({ space, testimonials, filters, counts, publi
                                 </select>
                             )}
 
-                            <form onSubmit={handleSearchSubmit} className="relative flex-1 sm:w-60">
+                            <form onSubmit={handleSearchSubmit} className="relative flex-1 sm:w-64">
                                 <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                                 <Input
                                     type="text"
-                                    placeholder="Search author, email..."
+                                    placeholder="Search author, company, text..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="h-9 pl-8 text-xs"
+                                    className="h-9 pl-8 pr-8 text-xs"
                                 />
+                                {searchQuery && (
+                                    <button
+                                        type="button"
+                                        onClick={handleClearSearch}
+                                        className="absolute right-2.5 top-2.5 text-muted-foreground hover:text-foreground"
+                                        title="Clear search query"
+                                    >
+                                        <X className="h-3.5 w-3.5" />
+                                    </button>
+                                )}
                             </form>
                         </div>
                     </div>
+
+                    {/* Active Filters Summary */}
+                    {(filters.search || filters.rating) && (
+                        <div className="flex items-center justify-between bg-muted/40 rounded-lg px-3 py-1.5 text-xs border border-border/50">
+                            <div className="flex items-center gap-2 text-muted-foreground flex-wrap">
+                                <span className="font-medium text-foreground">Filtering by:</span>
+                                {filters.search && (
+                                    <Badge variant="secondary" className="text-[11px] font-normal flex items-center gap-1">
+                                        Query: "{filters.search}"
+                                        <button type="button" onClick={handleClearSearch} className="hover:text-foreground">
+                                            <X className="h-3 w-3" />
+                                        </button>
+                                    </Badge>
+                                )}
+                                {filters.rating && (
+                                    <Badge variant="secondary" className="text-[11px] font-normal flex items-center gap-1">
+                                        Rating: {filters.rating} ★
+                                        <button type="button" onClick={() => handleRatingFilterChange('')} className="hover:text-foreground">
+                                            <X className="h-3 w-3" />
+                                        </button>
+                                    </Badge>
+                                )}
+                            </div>
+                            <button
+                                type="button"
+                                onClick={handleClearAllFilters}
+                                className="text-primary hover:underline text-xs font-medium shrink-0 ml-2"
+                            >
+                                Clear all filters
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 {/* Testimonial Cards List */}
@@ -684,6 +769,13 @@ export default function SpaceInbox({ space, testimonials, filters, counts, publi
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <QrCodeDialog
+                open={qrOpen}
+                onOpenChange={setQrOpen}
+                url={publicUrl}
+                spaceName={space.name}
+            />
         </AppLayout>
     );
 }
