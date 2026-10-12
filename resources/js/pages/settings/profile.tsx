@@ -38,6 +38,7 @@ export default function Profile({
     const getInitials = useInitials();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const [clientError, setClientError] = useState<string | null>(null);
 
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm<{
         _method: string;
@@ -56,6 +57,22 @@ export default function Profile({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                setClientError('The avatar must not be greater than 2MB.');
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+                return;
+            }
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                setClientError('The avatar must be a valid image file (JPG, PNG, or WebP).');
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+                return;
+            }
+            setClientError(null);
             setData((prev) => ({
                 ...prev,
                 avatar: file,
@@ -67,6 +84,7 @@ export default function Profile({
     };
 
     const handleRemoveAvatar = () => {
+        setClientError(null);
         setData((prev) => ({
             ...prev,
             avatar: null,
@@ -187,7 +205,7 @@ export default function Profile({
                                     <p className="text-xs text-muted-foreground leading-normal">
                                         Recommended: JPG, PNG, or WebP. Max 2MB. Square aspect ratio looks best.
                                     </p>
-                                    <InputError message={errors.avatar} />
+                                    <InputError message={clientError || errors.avatar} />
                                 </div>
                             </div>
                         </div>
