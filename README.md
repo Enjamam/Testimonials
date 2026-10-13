@@ -14,7 +14,7 @@ This application was engineered and tested using advanced pair-programming agent
   - **`Laravel Boost MCP`**: Laravel architecture enforcement, database schema verification, and framework-level best practices.
   - **`Wayfinder MCP`**: Auto-generated type-safe TypeScript bindings connecting Laravel controllers and routes directly to the React frontend.
 - **Automated Verification**:
-  - **Pest v5**: 162 automated feature & unit tests with 984 assertions passing.
+  - **Pest v5**: 168 automated feature & unit tests with 1,002 assertions passing.
   - **Laravel Pint**: Opinionated automated PHP code styling and formatting.
   - **TypeScript & Vite Compiler**: Zero-error strict type checking with React Compiler optimization.
 
@@ -23,7 +23,7 @@ This application was engineered and tested using advanced pair-programming agent
 ## 📊 Feature Completion Status
 
 ### ✅ Completed & Verified Features
-- [x] **Space & Collection Management**: Branded spaces, custom prompts, minimal light/dark themes, configurable fields (photo, company, social), star ratings, and human-readable branded URLs (`/s/{slug}`).
+- [x] **Space & Collection Management**: Branded spaces, custom prompts, 6 curated themes with ambient lighting, configurable fields (photo, company, social), star ratings, and human-readable branded URLs (`/s/{slug}`).
 - [x] **Public Submission Flow**: Responsive `/s/{slug}` form, consent checkbox gating, spam honeypot, rate limiting, and live celebratory modal with confetti & preview.
 - [x] **Instant QR Code Generator**: High-contrast scannable QR code modal with 1-click PNG download for physical table tents, receipts, flyers, and storefront desks.
 - [x] **Testimonial Moderation Inbox**: Approval/rejection workflows, favorites, Wall of Love flagging, inline clearable search, active filter indicators, and **1-click CSV export**.
@@ -31,7 +31,7 @@ This application was engineered and tested using advanced pair-programming agent
 - [x] **Subscriptions & Monetization**: Free vs Pro plan limits enforced server-side with row-level locks, Stripe Checkout, webhook idempotency, and Stripe Customer Portal.
 - [x] **Profile & Account Management**: Avatar photo upload with automatic disk storage, card-based settings layout, smooth tab transitions, 2FA (TOTP), Passkeys (WebAuthn), and Danger Zone account deletion.
 - [x] **Appearance & Theme Studio**: Light/Dark/System modes, 7 curated accent color palettes with real-time CSS variables, and corner curvature presets.
-- [x] **Comprehensive Automated Testing**: 162 tests passing (984 assertions) with 100% critical path coverage.
+- [x] **Comprehensive Automated Testing**: 168 tests passing (1,002 assertions) with 100% critical path coverage.
 
 ### ⏸️ Deliberately Out of Scope (MVP Product Boundaries)
 In accordance with the project contract (`CONTEXT.md`), the following features were excluded to prioritize rock-solid MVP core execution:
@@ -50,9 +50,9 @@ In accordance with the project contract (`CONTEXT.md`), the following features w
 - **Dedicated Spaces**: Create branded collection spaces with custom prompts, headers, subtitles, and guiding questions.
 - **Short & Meaningful Public Links**: Human-friendly branded URLs formatted as `/s/{slug}` (e.g. `/s/cloudscale-devops`) with automatic fallback to `/s/{public_id}`.
 - **Instant QR Code Generation**: Download high-contrast PNG QR codes directly from the Space overview or Inbox for display on printed collateral.
-- **Theme Personalization**: High-contrast **Minimal Light** and **Minimal Dark** themes that adapt cleanly to any brand.
+- **Theme Personalization**: 6 curated themes with atmospheric ambient glow meshes and high-contrast styling: **Minimal Light**, **Minimal Dark**, **Soft Lavender**, **Emerald Growth**, **Midnight Indigo**, and **Sunset Amber**.
 - **Configurable Fields**: Toggle optional/required respondent fields including avatar photos, company names, job titles, and social profile links.
-- **Star Ratings**: Configurable 1–5 star rating selector with intuitive rating labels.
+- **Star Ratings**: Configurable 1–5 star rating selector with live sentiment label pill and smooth hover scale micro-animations.
 
 ### ✍️ Public Submission Flow & UX
 - **Seamless Public Forms**: Clean, ultra-fast, mobile-responsive submission pages at `/s/{slug}`.

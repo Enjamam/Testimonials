@@ -152,9 +152,9 @@ export default function SpacesIndex({ spaces, usage }: Props) {
                                     </div>
 
                                     <div className="flex items-center justify-between rounded-md bg-muted/60 px-2.5 py-1.5 text-xs font-mono text-muted-foreground">
-                                        <span className="truncate">/s/{space.public_id}</span>
+                                        <span className="truncate">/s/{space.slug || space.public_id}</span>
                                         <a
-                                            href={`/s/${space.public_id}`}
+                                            href={`/s/${space.slug || space.public_id}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="ml-2 inline-flex items-center gap-1 font-sans text-xs text-muted-foreground hover:text-foreground shrink-0 transition-colors"

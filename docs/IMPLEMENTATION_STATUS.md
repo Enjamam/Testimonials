@@ -45,12 +45,12 @@ Last Updated: Phase 12 QA & Release Verification (All Phases Complete)
 ### Testing Setup
 - **Framework**: Pest v5 (`pestphp/pest: ^5.3`, `pestphp/pest-plugin-laravel: ^5.0`)
 - **Configuration**: `tests/Pest.php` binds `Tests\TestCase` and uses `RefreshDatabase` for Feature tests.
-- **Test Suite Status**: 162 tests passing (984 assertions, 0 failures, run time ~7.5s).
+- **Test Suite Status**: 168 tests passing (1,002 assertions, 0 failures, run time ~8s).
   - Starter kit tests: 40 tests
   - Cashier integration: 6 tests (`CashierTest`)
   - Domain models & scopes: 18 tests (`DomainModelTest`)
   - Authorization & IDOR protection: 6 tests (`AuthorizationTest`)
-  - Space Management & Limits: 12 tests (`SpaceManagementTest`)
+  - Space Management & Limits: 18 tests (`SpaceManagementTest` with 6-theme dataset test coverage)
   - Public Collection & Submissions: 14 tests (`PublicTestimonialSubmissionTest`)
   - Space Inbox & Moderation: 16 tests (`TestimonialModerationTest` with CSV export coverage)
   - Dashboard & Analytics: 5 tests (`DashboardTest`)
@@ -237,7 +237,15 @@ Total of 65 registered routes:
 - [x] 1-Click Testimonial CSV Export:
   - Added authorized streamed CSV download (`spaces.testimonials.export`) with UTF-8 BOM encoding for Microsoft Excel and Google Sheets.
 - [x] Short & Meaningful Public URLs:
-  - Updated public link generation to use human-readable slugs (`/s/{slug}`) across creation success, space show, inbox, and QR code generator, with seamless backward-compatible fallback to `public_id`.
+  - Updated public link generation to use human-readable slugs (`/s/{slug}`) across creation success, space index cards, space show, inbox, dashboard, and QR code generator, with seamless backward-compatible fallback to `public_id`.
 - [x] Enhanced Testimonial Inbox Search & Filter:
   - Added inline clearable search input (`X`) and active filter indicator banner with 1-click reset.
+- [x] Public Collection Page Design Studio & 6 Curated Themes:
+  - Upgraded public submission page (`/s/{slug}`) with atmospheric ambient radial glow mesh.
+  - Added verified collection space trust badge at page top.
+  - Glassmorphic prompt banner for guiding questions.
+  - Interactive star rating micro-interactions with hover scaling and live sentiment badge pill.
+  - Real-time character counter with responsive writing encouragement feedback tips.
+  - Trust & security footer (`🔒 256-bit Encrypted · Spam Protected · No Account Needed`).
+  - Added 6 curated themes across Space Create/Edit and Public Form: `Minimal Light`, `Minimal Dark`, `Soft Lavender`, `Emerald Growth`, `Midnight Indigo`, and `Sunset Amber`.
 

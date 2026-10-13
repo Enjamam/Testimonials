@@ -394,7 +394,7 @@ export default function Dashboard({ metrics, period, timeline, usage, spaces }: 
                                                     </Button>
 
                                                     <Button variant="ghost" size="icon" asChild className="h-8 w-8" title="Public Page">
-                                                        <a href={`/s/${space.public_id}`} target="_blank" rel="noopener noreferrer">
+                                                        <a href={`/s/${space.slug || space.public_id}`} target="_blank" rel="noopener noreferrer">
                                                             <ExternalLink className="h-3.5 w-3.5" />
                                                         </a>
                                                     </Button>
