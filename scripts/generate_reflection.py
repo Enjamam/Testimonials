@@ -92,15 +92,6 @@ def create_docx(filepath):
     p3_run.font.name = "Calibri"
     p3_run.font.size = Pt(11)
 
-    # Footer note
-    doc.add_paragraph()
-    footer = doc.add_paragraph()
-    f_run = footer.add_run("Word Count: 248 words | Verified with 159 Automated Pest Tests & Chrome DevTools MCP")
-    f_run.font.name = "Calibri"
-    f_run.font.size = Pt(9.5)
-    f_run.font.italic = True
-    f_run.font.color.rgb = RGBColor(120, 120, 120)
-
     doc.save(filepath)
     print(f"Created DOCX: {filepath}")
 
@@ -154,15 +145,6 @@ def create_pdf(html_path, pdf_path):
         color: #334155;
         text-align: justify;
     }
-    .footer {
-        margin-top: 36px;
-        padding-top: 12px;
-        border-top: 1px solid #e2e8f0;
-        color: #94a3b8;
-        font-size: 9pt;
-        display: flex;
-        justify-content: space-between;
-    }
     .badge {
         display: inline-block;
         background: #ecfdf5;
@@ -209,11 +191,6 @@ def create_pdf(html_path, pdf_path):
     <p>
         In future agentic projects, I would establish design layout tokens and reusable UI card primitives during initial setup rather than refining them after backend feature implementation. Furthermore, I would embed automated headless browser visual regression checks directly into subagent milestone gates from day one, catching UX and spacing gaps before proceeding to release verification.
     </p>
-
-    <div class="footer">
-        <span>Word Count: 248 words</span>
-        <span>Verified with 159 Automated Pest Tests &bull; Chrome DevTools MCP</span>
-    </div>
 </body>
 </html>"""
     
@@ -228,6 +205,7 @@ def create_pdf(html_path, pdf_path):
         browser,
         "--headless",
         "--disable-gpu",
+        "--no-pdf-header-footer",
         f"--print-to-pdf={pdf_path}",
         html_path
     ]
