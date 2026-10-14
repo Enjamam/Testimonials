@@ -3,6 +3,8 @@ import {
     ArrowRight,
     Check,
     CheckCircle2,
+    ChevronLeft,
+    ChevronRight,
     Code2,
     Copy,
     ExternalLink,
@@ -79,6 +81,7 @@ export default function Welcome() {
     const { auth } = usePage<{ auth: { user?: { name: string; email: string } | null } }>().props;
     const [previewTheme, setPreviewTheme] = useState<'dark' | 'light' | 'lavender'>('dark');
     const [previewLayout, setPreviewLayout] = useState<'grid' | 'carousel'>('grid');
+    const [activeSlide, setActiveSlide] = useState(0);
     const [copiedSnippet, setCopiedSnippet] = useState(false);
 
     const handleCopySnippet = async () => {
@@ -361,125 +364,267 @@ export default function Welcome() {
                                   : 'bg-gradient-to-br from-indigo-100/90 via-purple-50/90 to-pink-100/90 border-indigo-200'
                         }`}
                     >
-                        <div
-                            className={`grid gap-5 ${
-                                previewLayout === 'grid'
-                                    ? 'grid-cols-1 md:grid-cols-3'
-                                    : 'grid-cols-1 md:grid-cols-3 overflow-x-auto pb-2'
-                            }`}
-                        >
-                            {SAMPLE_TESTIMONIALS.map((t) => (
-                                <Card
-                                    key={t.id}
-                                    className={`h-full flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 ${
-                                        previewTheme === 'dark'
-                                            ? 'bg-slate-900/90 border-slate-800 text-slate-100 shadow-lg'
-                                            : previewTheme === 'light'
-                                              ? 'bg-white border-slate-200 text-slate-900 shadow-md'
-                                              : 'bg-white/95 border-indigo-100 text-slate-900 shadow-lg'
-                                    }`}
-                                >
-                                    <CardContent className="p-6 flex flex-col justify-between h-full space-y-4">
-                                        <div className="space-y-3">
-                                            {/* Top Rating Row & Badge */}
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-1 text-amber-400">
-                                                    {[...Array(t.rating)].map((_, i) => (
-                                                        <Star
-                                                            key={i}
-                                                            className="w-4 h-4 fill-amber-400 text-amber-400"
-                                                        />
-                                                    ))}
+                        {previewLayout === 'grid' ? (
+                            /* Responsive Equal-Height Grid */
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+                                {SAMPLE_TESTIMONIALS.map((t) => (
+                                    <Card
+                                        key={t.id}
+                                        className={`h-full flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 ${
+                                            previewTheme === 'dark'
+                                                ? 'bg-slate-900/90 border-slate-800 text-slate-100 shadow-lg'
+                                                : previewTheme === 'light'
+                                                  ? 'bg-white border-slate-200 text-slate-900 shadow-md'
+                                                  : 'bg-white/95 border-indigo-100 text-slate-900 shadow-lg'
+                                        }`}
+                                    >
+                                        <CardContent className="p-6 flex flex-col justify-between h-full space-y-4">
+                                            <div className="space-y-3">
+                                                {/* Top Rating Row & Badge */}
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-1 text-amber-400">
+                                                        {[...Array(t.rating)].map((_, i) => (
+                                                            <Star
+                                                                key={i}
+                                                                className="w-4 h-4 fill-amber-400 text-amber-400"
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                    <Badge
+                                                        variant="secondary"
+                                                        className={`text-[10px] font-semibold ${
+                                                            previewTheme === 'dark'
+                                                                ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/60'
+                                                                : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                                        }`}
+                                                    >
+                                                        {t.tag}
+                                                    </Badge>
                                                 </div>
-                                                <Badge
-                                                    variant="secondary"
-                                                    className={`text-[10px] font-semibold ${
+
+                                                {/* Testimonial Quote */}
+                                                <p
+                                                    className={`text-sm leading-relaxed italic ${
                                                         previewTheme === 'dark'
-                                                            ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/60'
-                                                            : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                                            ? 'text-slate-200'
+                                                            : 'text-slate-700'
                                                     }`}
                                                 >
-                                                    {t.tag}
-                                                </Badge>
+                                                    "{t.text}"
+                                                </p>
                                             </div>
 
-                                            {/* Testimonial Quote */}
-                                            <p
-                                                className={`text-sm leading-relaxed italic ${
+                                            {/* Author Bottom Anchor */}
+                                            <div
+                                                className={`pt-4 border-t flex items-center gap-3 ${
                                                     previewTheme === 'dark'
-                                                        ? 'text-slate-200'
-                                                        : 'text-slate-700'
+                                                        ? 'border-slate-800'
+                                                        : 'border-slate-100'
                                                 }`}
                                             >
-                                                "{t.text}"
-                                            </p>
-                                        </div>
+                                                <div
+                                                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs border ${t.avatarBg}`}
+                                                >
+                                                    {t.initials}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <p
+                                                        className={`text-xs font-bold truncate ${
+                                                            previewTheme === 'dark'
+                                                                ? 'text-white'
+                                                                : 'text-slate-900'
+                                                        }`}
+                                                    >
+                                                        {t.name}
+                                                    </p>
+                                                    <p
+                                                        className={`text-[11px] truncate ${
+                                                            previewTheme === 'dark'
+                                                                ? 'text-slate-400'
+                                                                : 'text-slate-500'
+                                                        }`}
+                                                    >
+                                                        {t.role} · {t.company}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        ) : (
+                            /* Interactive Carousel Slider */
+                            <div className="space-y-5">
+                                <div className="relative flex items-center justify-center">
+                                    {/* Previous Slide Button */}
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveSlide((prev) => (prev > 0 ? prev - 1 : SAMPLE_TESTIMONIALS.length - 1))}
+                                        aria-label="Previous testimonial"
+                                        className={`absolute left-0 sm:-left-3 z-10 p-2.5 rounded-full border shadow-xl transition-all duration-200 active:scale-95 ${
+                                            previewTheme === 'dark'
+                                                ? 'bg-slate-900 border-slate-700 text-white hover:bg-slate-800 hover:border-emerald-500'
+                                                : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50 hover:border-emerald-500'
+                                        }`}
+                                    >
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </button>
 
-                                        {/* Author Bottom Anchor */}
-                                        <div
-                                            className={`pt-4 border-t flex items-center gap-3 ${
+                                    {/* Active Slide Card */}
+                                    <div className="w-full max-w-2xl px-8 sm:px-14">
+                                        <Card
+                                            className={`transition-all duration-300 shadow-2xl ${
                                                 previewTheme === 'dark'
-                                                    ? 'border-slate-800'
-                                                    : 'border-slate-100'
+                                                    ? 'bg-slate-900/95 border-slate-800 text-slate-100 shadow-emerald-950/20'
+                                                    : previewTheme === 'light'
+                                                      ? 'bg-white border-slate-200 text-slate-900'
+                                                      : 'bg-white/95 border-indigo-100 text-slate-900'
                                             }`}
                                         >
-                                            <div
-                                                className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs border ${t.avatarBg}`}
-                                            >
-                                                {t.initials}
-                                            </div>
-                                            <div className="min-w-0">
-                                                <p
-                                                    className={`text-xs font-bold truncate ${
+                                            <CardContent className="p-8 sm:p-10 space-y-6">
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-1.5 text-amber-400">
+                                                        {[...Array(SAMPLE_TESTIMONIALS[activeSlide].rating)].map((_, i) => (
+                                                            <Star
+                                                                key={i}
+                                                                className="w-5 h-5 fill-amber-400 text-amber-400"
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                    <Badge
+                                                        variant="secondary"
+                                                        className={`text-xs font-semibold px-2.5 py-1 ${
+                                                            previewTheme === 'dark'
+                                                                ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/60'
+                                                                : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                                        }`}
+                                                    >
+                                                        {SAMPLE_TESTIMONIALS[activeSlide].tag}
+                                                    </Badge>
+                                                </div>
+
+                                                <blockquote
+                                                    className={`text-base sm:text-lg leading-relaxed italic ${
                                                         previewTheme === 'dark'
-                                                            ? 'text-white'
-                                                            : 'text-slate-900'
+                                                            ? 'text-slate-100'
+                                                            : 'text-slate-800'
                                                     }`}
                                                 >
-                                                    {t.name}
-                                                </p>
-                                                <p
-                                                    className={`text-[11px] truncate ${
+                                                    "{SAMPLE_TESTIMONIALS[activeSlide].text}"
+                                                </blockquote>
+
+                                                <div
+                                                    className={`pt-6 border-t flex items-center justify-between ${
                                                         previewTheme === 'dark'
-                                                            ? 'text-slate-400'
-                                                            : 'text-slate-500'
+                                                            ? 'border-slate-800'
+                                                            : 'border-slate-100'
                                                     }`}
                                                 >
-                                                    {t.role} · {t.company}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
+                                                    <div className="flex items-center gap-3.5">
+                                                        <div
+                                                            className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm border ${SAMPLE_TESTIMONIALS[activeSlide].avatarBg}`}
+                                                        >
+                                                            {SAMPLE_TESTIMONIALS[activeSlide].initials}
+                                                        </div>
+                                                        <div>
+                                                            <p
+                                                                className={`text-sm font-bold ${
+                                                                    previewTheme === 'dark'
+                                                                        ? 'text-white'
+                                                                        : 'text-slate-900'
+                                                                }`}
+                                                            >
+                                                                {SAMPLE_TESTIMONIALS[activeSlide].name}
+                                                            </p>
+                                                            <p
+                                                                className={`text-xs ${
+                                                                    previewTheme === 'dark'
+                                                                        ? 'text-slate-400'
+                                                                        : 'text-slate-500'
+                                                                }`}
+                                                            >
+                                                                {SAMPLE_TESTIMONIALS[activeSlide].role} · {SAMPLE_TESTIMONIALS[activeSlide].company}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <span className="text-[11px] font-mono text-slate-400 hidden sm:inline-block">
+                                                        Slide {activeSlide + 1} of {SAMPLE_TESTIMONIALS.length}
+                                                    </span>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+
+                                    {/* Next Slide Button */}
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveSlide((prev) => (prev < SAMPLE_TESTIMONIALS.length - 1 ? prev + 1 : 0))}
+                                        aria-label="Next testimonial"
+                                        className={`absolute right-0 sm:-right-3 z-10 p-2.5 rounded-full border shadow-xl transition-all duration-200 active:scale-95 ${
+                                            previewTheme === 'dark'
+                                                ? 'bg-slate-900 border-slate-700 text-white hover:bg-slate-800 hover:border-emerald-500'
+                                                : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50 hover:border-emerald-500'
+                                        }`}
+                                    >
+                                        <ChevronRight className="w-5 h-5" />
+                                    </button>
+                                </div>
+
+                                {/* Pagination Dots */}
+                                <div className="flex items-center justify-center gap-2 pt-1">
+                                    {SAMPLE_TESTIMONIALS.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            type="button"
+                                            onClick={() => setActiveSlide(idx)}
+                                            aria-label={`Go to slide ${idx + 1}`}
+                                            className={`transition-all duration-200 rounded-full ${
+                                                activeSlide === idx
+                                                    ? 'w-7 h-2.5 bg-emerald-500'
+                                                    : 'w-2.5 h-2.5 bg-slate-600 hover:bg-slate-400'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Live Snippet Box */}
-                        <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
-                            <div className="flex items-center gap-2 text-slate-400 truncate max-w-xl">
+                        <div
+                            className={`mt-8 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono transition-colors ${
+                                previewTheme === 'dark'
+                                    ? 'border-slate-800 text-slate-400'
+                                    : previewTheme === 'light'
+                                      ? 'border-slate-300 text-slate-600'
+                                      : 'border-indigo-200 text-slate-700'
+                            }`}
+                        >
+                            <div className="flex items-center gap-2 truncate max-w-xl">
                                 <Code2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                 <span className="truncate">
                                     &lt;script src="https://testimonials.app/embed.js" async&gt;&lt;/script&gt;
                                 </span>
                             </div>
-                            <Button
-                                size="sm"
-                                variant="outline"
+
+                            {/* Prominent High-Contrast Copy Button with Crisp White Hover Contrast */}
+                            <button
+                                type="button"
                                 onClick={handleCopySnippet}
-                                className="border-slate-700 bg-slate-900 text-slate-200 hover:text-white shrink-0"
+                                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 shrink-0 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white shadow-lg shadow-emerald-950/40 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                             >
                                 {copiedSnippet ? (
                                     <>
-                                        <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
-                                        Copied Embed Code!
+                                        <Check className="w-4 h-4 text-white" />
+                                        <span>Copied to Clipboard!</span>
                                     </>
                                 ) : (
                                     <>
-                                        <Copy className="w-3.5 h-3.5 mr-1.5" />
-                                        Copy 1-Line Embed Code
+                                        <Copy className="w-4 h-4 text-emerald-100" />
+                                        <span>Copy 1-Line Embed Code</span>
                                     </>
                                 )}
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -668,7 +813,7 @@ export default function Welcome() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    {/* Free Tier */}
+                    {/* Free Starter Tier */}
                     <Card className="bg-slate-900/60 border-slate-800 text-slate-100 flex flex-col justify-between shadow-xl">
                         <CardContent className="p-8 space-y-6">
                             <div>
@@ -684,24 +829,28 @@ export default function Welcome() {
 
                             <ul className="space-y-3 text-xs text-slate-300">
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                                    <span><strong>1 Active Space</strong></span>
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span><strong>Up to 3 Active Spaces</strong></span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                                    <span><strong>Up to 15 Testimonials</strong></span>
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span><strong>100 Testimonials per Space</strong></span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>Short &amp; branded URL (<code className="text-emerald-400 font-mono">/s/{'{slug}'}</code>)</span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>Instant high-contrast QR code generator</span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                                    <span>Standard Wall of Love embed widget</span>
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span>Wall of Love curation &amp; moderation</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span>Honeypot spam &amp; bot protection</span>
                                 </li>
                             </ul>
 
@@ -715,7 +864,7 @@ export default function Welcome() {
                         </CardContent>
                     </Card>
 
-                    {/* Pro Tier */}
+                    {/* Pro Growth Tier */}
                     <Card className="relative bg-gradient-to-b from-slate-900 via-emerald-950/20 to-slate-900 border-emerald-500/60 text-slate-100 flex flex-col justify-between shadow-2xl shadow-emerald-950/50">
                         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
                             <span className="px-3.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md">
@@ -732,34 +881,38 @@ export default function Welcome() {
                                 </p>
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-extrabold text-white">$19</span>
+                                <span className="text-4xl font-extrabold text-white">$9.99</span>
                                 <span className="text-sm text-slate-400 font-medium">/ month</span>
                             </div>
 
                             <ul className="space-y-3 text-xs text-slate-300">
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                                    <span><strong>Unlimited Active Spaces</strong></span>
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span><strong>Up to 25 Active Spaces</strong></span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                                    <span><strong>Unlimited Testimonials</strong></span>
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span><strong>1,000 Testimonials per Space</strong></span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>Full 6-Theme Palette Customization</span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>Equal-height Grid &amp; Carousel embed layouts</span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>Min-Star rating filter (4★ &amp; 5★ reviews only)</span>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>1-Click UTF-8 CSV exports for marketing reports</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                    <span>Direct Stripe Customer Portal Access</span>
                                 </li>
                             </ul>
 

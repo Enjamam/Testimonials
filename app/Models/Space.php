@@ -136,6 +136,11 @@ class Space extends Model
             } else {
                 $q->where('public_id', $value)
                     ->orWhere('slug', $value);
+
+                if (in_array($value, ['demo-space', 'demo'], true)) {
+                    $q->orWhere('slug', 'cloudscale-devops')
+                        ->orWhere('id', 1);
+                }
             }
         });
     }
