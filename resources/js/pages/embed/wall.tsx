@@ -50,6 +50,15 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
     };
 
     const isDark = config.dark_mode;
+
+    React.useEffect(() => {
+        document.documentElement.classList.toggle('dark', isDark);
+        document.documentElement.style.backgroundColor = 'transparent';
+        document.body.style.backgroundColor = 'transparent';
+        document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+        document.body.style.colorScheme = isDark ? 'dark' : 'light';
+    }, [isDark]);
+
     const cardRadius = config.display_options?.card_radius || 'rounded-2xl';
     const cardShadow = config.display_options?.card_shadow || (isDark ? 'shadow-md' : 'shadow-xs');
     const cardBg = isDark
@@ -57,15 +66,30 @@ export default function EmbedWall({ space, config, testimonials }: Props) {
         : `bg-white border-slate-200 text-slate-900 ${cardShadow}`;
     const mutedText = isDark ? 'text-zinc-400' : 'text-slate-500';
 
+    const isWhiteBg = Boolean(
+        config.background_color &&
+        (config.background_color === '#ffffff' ||
+         config.background_color === '#fff' ||
+         config.background_color.toLowerCase() === 'rgb(255, 255, 255)')
+    );
+
+    const hasCustomBg = Boolean(
+        config.background_color &&
+        config.background_color !== 'transparent' &&
+        (!isDark || !isWhiteBg)
+    );
+
     return (
         <div
-            className={`min-h-screen w-full p-4 sm:p-6 transition-colors duration-200 ${
-                isDark ? 'bg-zinc-950 text-zinc-100' : 'bg-transparent text-slate-900'
+            className={`w-full p-4 sm:p-6 transition-colors duration-200 ${
+                hasCustomBg
+                    ? ''
+                    : isDark
+                      ? 'bg-transparent text-zinc-100'
+                      : 'bg-transparent text-slate-900'
             }`}
             style={{
-                backgroundColor: config.background_color && config.background_color !== 'transparent'
-                    ? config.background_color
-                    : undefined,
+                backgroundColor: hasCustomBg ? config.background_color! : 'transparent',
             }}
         >
             <Head title={`${space.title} — Wall of Love`} />

@@ -41,14 +41,28 @@
 
             el.setAttribute('data-testimonials-initialized', 'true');
 
+            var params = [];
+            var theme = el.getAttribute('data-theme');
+            if (theme) {
+                params.push('theme=' + encodeURIComponent(theme));
+            }
+            var layout = el.getAttribute('data-layout');
+            if (layout) {
+                params.push('layout=' + encodeURIComponent(layout));
+            }
+            var query = params.length ? '?' + params.join('&') : '';
+
             var iframe = document.createElement('iframe');
-            iframe.src = (baseUrl || '') + '/embed/' + encodeURIComponent(spaceId);
+            iframe.src = (baseUrl || '') + '/embed/' + encodeURIComponent(spaceId) + query;
             iframe.width = '100%';
-            iframe.height = el.getAttribute('data-height') || '650';
+            iframe.height = el.getAttribute('data-height') || '420';
             iframe.style.border = 'none';
             iframe.style.width = '100%';
-            iframe.style.minHeight = '400px';
+            iframe.style.minHeight = el.getAttribute('data-min-height') || '280px';
             iframe.style.overflow = 'hidden';
+            iframe.style.background = 'transparent';
+            iframe.style.backgroundColor = 'transparent';
+            iframe.setAttribute('allowtransparency', 'true');
             iframe.loading = 'lazy';
             iframe.title = 'Customer Testimonials';
 

@@ -66,6 +66,14 @@ class PublicEmbedController extends Controller
                 ];
             });
 
+        $layout = in_array($request->query('layout'), ['masonry', 'carousel'], true)
+            ? $request->query('layout')
+            : $config->layout;
+
+        $darkMode = $request->has('theme')
+            ? ($request->query('theme') === 'dark')
+            : (bool) $config->dark_mode;
+
         if ($request->wantsJson() || $request->query('format') === 'json') {
             return response()->json([
                 'space' => [
@@ -74,8 +82,8 @@ class PublicEmbedController extends Controller
                     'rating_enabled' => (bool) $space->rating_enabled,
                 ],
                 'config' => [
-                    'layout' => $config->layout,
-                    'dark_mode' => (bool) $config->dark_mode,
+                    'layout' => $layout,
+                    'dark_mode' => $darkMode,
                     'animation_enabled' => (bool) $config->animation_enabled,
                     'background_color' => $config->background_color,
                     'item_limit' => $config->item_limit,
@@ -92,8 +100,8 @@ class PublicEmbedController extends Controller
                 'rating_enabled' => (bool) $space->rating_enabled,
             ],
             'config' => [
-                'layout' => $config->layout,
-                'dark_mode' => (bool) $config->dark_mode,
+                'layout' => $layout,
+                'dark_mode' => $darkMode,
                 'animation_enabled' => (bool) $config->animation_enabled,
                 'background_color' => $config->background_color,
                 'item_limit' => $config->item_limit,

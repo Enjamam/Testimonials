@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,44 @@
         :root {
             --primary: #059669;
             --primary-hover: #10b981;
+        }
+
+        /* Dark Host Theme (Default) */
+        html[data-theme="dark"] {
             --bg: #090d16;
             --surface: #111827;
+            --surface-inner: #0f172a;
             --border: #1f2937;
+            --border-subtle: #374151;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
+            --heading-gradient: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+            --badge-bg: rgba(16, 185, 129, 0.12);
+            --badge-border: rgba(16, 185, 129, 0.3);
+            --badge-text: #34d399;
+            --nav-bg: #1e293b;
+            --nav-border: #334155;
+            --nav-text: #e2e8f0;
         }
+
+        /* Light Host Theme */
+        html[data-theme="light"] {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-inner: #f1f5f9;
+            --border: #e2e8f0;
+            --border-subtle: #cbd5e1;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --heading-gradient: linear-gradient(135deg, #0f172a 40%, #475569 100%);
+            --badge-bg: #ecfdf5;
+            --badge-border: #a7f3d0;
+            --badge-text: #059669;
+            --nav-bg: #ffffff;
+            --nav-border: #e2e8f0;
+            --nav-text: #334155;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -29,10 +61,11 @@
             background: var(--bg);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 32px 16px 64px;
+            padding: 24px 16px 48px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .container {
             width: 100%;
@@ -43,8 +76,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 32px;
-            padding-bottom: 20px;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
             border-bottom: 1px solid var(--border);
         }
         .brand-link {
@@ -67,40 +100,63 @@
             color: #fff;
             font-size: 16px;
         }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--nav-border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
         .back-btn {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #1e293b;
-            color: #e2e8f0;
+            background: var(--nav-bg);
+            color: var(--nav-text);
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
-            padding: 8px 16px;
+            padding: 7px 14px;
             border-radius: 8px;
-            border: 1px solid #334155;
+            border: 1px solid var(--nav-border);
             transition: all 0.2s ease;
         }
         .back-btn:hover {
-            background: #334155;
-            color: #fff;
+            border-color: var(--primary);
+            color: var(--primary);
         }
         .header {
             text-align: center;
-            margin-bottom: 36px;
+            margin-bottom: 28px;
         }
         .badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 9999px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
-            font-size: 12px;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--badge-text);
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -112,48 +168,52 @@
             box-shadow: 0 0 10px #10b981;
         }
         h1 {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
             letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+            margin-bottom: 10px;
+            background: var(--heading-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         p.subtitle {
             color: var(--text-muted);
-            font-size: 15px;
-            max-width: 600px;
+            font-size: 14px;
+            max-width: 620px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         .embed-card {
             background: var(--surface);
             border-radius: 20px;
             border: 1px solid var(--border);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
             overflow: hidden;
-            padding: 24px;
+            padding: 16px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .instructions-bar {
-            margin-top: 24px;
-            padding: 16px 20px;
-            background: rgba(15, 23, 42, 0.8);
+            margin-top: 20px;
+            padding: 14px 18px;
+            background: var(--surface-inner);
             border-radius: 12px;
             border: 1px solid var(--border);
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            font-size: 13px;
+            gap: 12px;
+            font-size: 12px;
             color: var(--text-muted);
         }
         code {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.1);
+            color: var(--badge-text);
+            background: var(--badge-bg);
             padding: 3px 8px;
             border-radius: 6px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--badge-border);
             font-size: 12px;
         }
     </style>
@@ -165,7 +225,13 @@
                 <div class="brand-icon">★</div>
                 <span>Testimonials</span>
             </a>
-            <a href="/" class="back-btn">← Back to Landing Page</a>
+            <div class="nav-actions">
+                <button type="button" id="theme-btn" class="theme-toggle" onclick="toggleDemoTheme()">
+                    <span id="theme-icon">☀️</span>
+                    <span id="theme-label">Switch to Light Host</span>
+                </button>
+                <a href="/" class="back-btn">← Back to Landing Page</a>
+            </div>
         </nav>
 
         <header class="header">
@@ -175,22 +241,51 @@
             </div>
             <h1>Live Wall of Love Embed Verification</h1>
             <p class="subtitle">
-                Demonstrating third-party website drop-in integration via zero-dependency script tag. Testimonials render seamlessly in an isolated sandbox.
+                Demonstrating third-party website drop-in integration via zero-dependency script tag. The widget automatically adapts to dark and light host themes with zero styling conflicts.
             </p>
         </header>
 
         <main class="embed-card">
-            <!-- Testimonial Wall Embed Container -->
-            <div id="testimonials-wall" data-space="demo-space" data-height="650"></div>
+            <!-- Testimonial Wall Embed Container matching Host Theme -->
+            <div id="testimonials-wall" data-space="demo-space" data-theme="dark" data-height="370"></div>
         </main>
 
         <footer class="instructions-bar">
-            <span>Client Embed Tag: <code>&lt;div id="testimonials-wall" data-space="cloudscale-devops"&gt;&lt;/div&gt;</code></span>
-            <span>Script: <code>&lt;script src="/embed.js" async&gt;&lt;/script&gt;</code></span>
+            <span>Client Embed Tag: <code id="embed-snippet">&lt;div id="testimonials-wall" data-space="cloudscale-devops" data-theme="dark"&gt;&lt;/div&gt;</code></span>
+            <span>Zero-Dependency Script: <code>&lt;script src="/embed.js" async&gt;&lt;/script&gt;</code></span>
         </footer>
     </div>
 
     <!-- Official Testimonials Embed Widget Script -->
     <script src="/embed.js" async></script>
+
+    <script>
+        function toggleDemoTheme() {
+            var html = document.documentElement;
+            var currentTheme = html.getAttribute('data-theme') || 'dark';
+            var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+
+            var themeIcon = document.getElementById('theme-icon');
+            var themeLabel = document.getElementById('theme-label');
+            var snippet = document.getElementById('embed-snippet');
+
+            if (newTheme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = 'Switch to Light Host';
+                snippet.textContent = '<div id="testimonials-wall" data-space="cloudscale-devops" data-theme="dark"></div>';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = 'Switch to Dark Host';
+                snippet.textContent = '<div id="testimonials-wall" data-space="cloudscale-devops" data-theme="light"></div>';
+            }
+
+            // Reload iframe with new theme seamlessly
+            var iframe = document.querySelector('#testimonials-wall iframe');
+            if (iframe) {
+                iframe.src = '/embed/demo-space?theme=' + newTheme;
+            }
+        }
+    </script>
 </body>
 </html>

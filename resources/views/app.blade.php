@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark' || (request()->routeIs('public.embed.show') && request('theme') === 'dark')])>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
+        @if(!request()->routeIs('public.embed.show'))
         <script>
             (function() {
                 const appearance = '{{ $appearance ?? "system" }}';
@@ -18,9 +19,17 @@
                 }
             })();
         </script>
+        @endif
 
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
+            @if(request()->routeIs('public.embed.show'))
+            html, body {
+                background-color: transparent !important;
+                background: transparent !important;
+                color-scheme: {{ request('theme') === 'dark' ? 'dark' : (request('theme') === 'light' ? 'light' : 'normal') }} !important;
+            }
+            @else
             html {
                 background-color: oklch(1 0 0);
             }
@@ -28,6 +37,7 @@
             html.dark {
                 background-color: oklch(0.145 0 0);
             }
+            @endif
         </style>
 
         <link rel="icon" href="/favicon.ico" sizes="any">
