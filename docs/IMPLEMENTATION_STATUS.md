@@ -173,7 +173,7 @@ Total of 65 registered routes:
 - **TypeScript Typecheck (`tsc --noEmit`)**: Passed with 0 errors.
 - **Frontend Production Build (`npm run build`)**: Passed in ~6s, 2322 modules transformed cleanly.
 - **AI & MCP Tooling Verification**:
-  - **AI Model**: Google DeepMind Gemini 2.5 (Antigravity IDE Advanced Agentic Coding).
+  - **AI Model**: Google DeepMind Gemini 3.8 Flash (Medium) (Antigravity IDE Advanced Agentic Coding).
   - **Chrome DevTools MCP**: Automated headless browser testing, real-time viewport screenshot verification, DOM snapshot audits, and interactive UI regression testing across mobile, tablet, and desktop viewports.
   - **Laravel Boost MCP**: Laravel architecture enforcement, database schema verification, and framework-level best practices.
   - **Wayfinder MCP**: Auto-generated type-safe TypeScript bindings connecting Laravel controllers and routes directly to the React frontend.

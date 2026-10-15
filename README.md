@@ -17,9 +17,7 @@ Watch the application in action through our screen recordings demonstrating the 
 
 [![Watch Quick Video Walkthrough (5m 03s)](docs/video-short-thumbnail.png)](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm)
 
-<iframe src="https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm" width="100%" height="460" frameborder="0" allowfullscreen></iframe>
-
-> 💡 **Watch Directly in Browser**: Click the player above to stream the video instantly in GitHub's native media player (**No download required**).
+> 💡 **Watch Directly in Browser**: Click the thumbnail card above to stream the video instantly in GitHub's native media player (**No download required**).
 > - **Video File**: [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) &bull; **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
 
 **Features Demonstrated in the Short Walkthrough:**
@@ -36,9 +34,7 @@ Watch the application in action through our screen recordings demonstrating the 
 
 [![Watch Full Feature Walkthrough (15m 03s)](docs/video-full-thumbnail.png)](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4)
 
-<iframe src="https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4" width="100%" height="460" frameborder="0" allowfullscreen></iframe>
-
-> 💡 **Watch Directly in Browser**: Click the player above to stream the comprehensive demo instantly in GitHub's native player (**No download required**).
+> 💡 **Watch Directly in Browser**: Click the thumbnail card above to stream the comprehensive demo instantly in GitHub's native player (**No download required**).
 > - **Video File**: [`docs/Testimonials Project.mp4`](docs/Testimonials%20Project.mp4) &bull; **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
 
 ---
@@ -47,7 +43,7 @@ Watch the application in action through our screen recordings demonstrating the 
 
 This application was engineered and verified using advanced pair-programming agentic workflows:
 
-- **AI Model**: **Google DeepMind Gemini 2.5 (Advanced Agentic Coding / Antigravity IDE)**
+- **AI Model**: **Google DeepMind Gemini 3.8 Flash (Medium) (Advanced Agentic Coding / Antigravity IDE)**
 - **Model Context Protocol (MCP) Ecosystem**:
   - **`chrome-devtools-mcp`**: Automated headless browser testing, real-time viewport screenshot verification, DOM snapshot audits, and interactive UI regression testing across mobile, tablet, and desktop viewports.
   - **`Laravel Boost MCP`**: Laravel architecture enforcement, database schema verification, and framework-level best practices.
@@ -147,7 +143,7 @@ In accordance with the project contract (`CONTEXT.md` / `AGENTS.md`), the follow
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **AI Pair-Programming** | Google DeepMind Gemini 2.5 | Architecture design, full-stack implementation & automated testing |
+| **AI Pair-Programming** | Google DeepMind Gemini 3.8 Flash (Medium) | Architecture design, full-stack implementation & automated testing |
 | **Testing / Tooling MCP**| Chrome DevTools MCP & Laravel Boost MCP | Live browser execution, screenshot verification, DOM audits |
 | **Backend Framework** | [Laravel 11/12](https://laravel.com) (PHP 8.4) | Modular backend, Eloquent ORM, Queues & Middleware |
 | **Frontend Adapter** | [Inertia.js v3](https://inertiajs.com) | Monolith SPA architecture with instant routing & state sync |
