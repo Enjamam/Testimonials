@@ -11,7 +11,7 @@ A modern, production-ready SaaS application for collecting, moderating, and embe
 
 ## 🎥 Project Walkthrough & Video Demos
 
-Watch the application in action through our screen recordings demonstrating the full end-to-end user workflow—from space creation and branded URL generation to public submission with celebratory confetti, moderation inbox, 1-click CSV export, and responsive Wall of Love embeds.
+Watch the application in action through our screen recordings demonstrating the full end-to-end user workflow—from space creation and branded URL generation to public review submission with celebratory confetti, moderation inbox, 1-click CSV export, and responsive Wall of Love embeds.
 
 ### ⚡ 1. Short Screen Recording (2–5 Minutes) — *Course Submission Requirement*
 > **File**: [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) &bull; **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
@@ -83,6 +83,86 @@ In accordance with the project contract (`CONTEXT.md` / `AGENTS.md`), the follow
 
 ---
 
+## 🚀 Features
+
+### 🏢 Space & Collection Management
+- **Dedicated Spaces**: Create branded collection spaces with custom prompts, headers, subtitles, and guiding questions.
+- **Short & Meaningful Public Links**: Human-friendly branded URLs formatted as `/s/{slug}` (e.g. `/s/cloudscale-devops`) with automatic fallback to `/s/{public_id}`.
+- **Instant QR Code Generation**: Download high-contrast PNG QR codes directly from the Space overview or Inbox for display on printed collateral.
+- **Theme Personalization**: 6 curated themes with atmospheric ambient glow meshes and high-contrast styling: **Minimal Light**, **Minimal Dark**, **Soft Lavender**, **Emerald Growth**, **Midnight Indigo**, and **Sunset Amber**.
+- **Configurable Fields**: Toggle optional/required respondent fields including avatar photos, company names, job titles, and social profile links.
+- **Star Ratings**: Configurable 1–5 star rating selector with live sentiment label pill and smooth hover scale micro-animations.
+
+### ✍️ Public Submission Flow & UX
+- **Seamless Public Forms**: Clean, ultra-fast, mobile-responsive submission pages at `/s/{slug}`.
+- **Consent-Gated Submissions**: Strict permission consent checkbox gating to ensure legal compliance for public marketing usage.
+- **Live Celebratory Modal**: Beautiful celebratory popup dialog upon submission featuring floating confetti animations, glowing celebratory badge, and an instant live preview of the submitted testimonial.
+- **Spam & Abuse Protection**: Client-side image validation (2MB limit), silent honeypot trap (`website_hp`), and server-side submission rate limiting (6 requests/minute).
+
+### 📥 Testimonial Inbox & Moderation
+- **Moderation Workflow**: Filter by pending, approved, or archived/rejected testimonials.
+- **1-Click CSV Export**: Streamed, authorized export of all collected testimonials with UTF-8 BOM encoding for seamless Microsoft Excel and Google Sheets compatibility.
+- **Wall of Love Selection**: Curate and feature the best testimonials for public display with a single click.
+- **Enhanced Search & Filtering**: Instant search by customer name, company, or testimonial text with an inline `X` reset button and active filter indicator chips.
+
+### 🌐 Widgets, Wall of Love & Embeds
+- **Interactive Embed Builder Studio**: Live sandbox with real-time layout updates, iframe and script snippet generators.
+- **Uniform Equal-Height Grid**: Replaced uneven multi-column flow with CSS Grid and bottom-anchored author footers for a symmetrical, polished presentation.
+- **Theme-Adaptive Transparent Background**: Embeds default to `transparent` to naturally inherit host website background colors, accompanied by 1-click theme presets (`Interface Default`, `Dark`, `Light`, `Slate`).
+- **Minimum Star Rating Filter**: Configure widgets to display only top praise (e.g. *Only show 4★ and 5★ reviews*).
+- **Card Radius & Shadow Presets**: Choose between Sharp, Classic, Smooth, and Pill corner radii, plus Flat, Subtle, Elevated, and Floating shadow depths.
+- **Lightweight Embed Script**: Zero-dependency standalone JavaScript loader (`public/embed.js`) compatible with any CMS, Shopify, WordPress, Webflow, or custom site.
+- **Iframe & Direct Integration**: Responsive iframe fallback and native embed code snippets with one-click copy.
+- **Embed Demo Showcase**: Built-in demonstration page at `/embed-demo.html` showcasing live responsive grid and carousel widgets with real-time host dark/light theme switching.
+
+### 👤 Profile, Avatar & Account Settings
+- **Profile Picture Upload**: Upload custom avatar photos (JPG, PNG, WebP up to 2MB) with live client-side preview, automatic disk storage management, and old photo cleanup.
+- **Sidebar & Header Sync**: Instant live synchronization of uploaded avatars to the primary sidebar user widget and dropdown menus.
+- **Clean Card-Based Settings Layout**: Modern, structured `max-w-5xl` settings suite eliminating excessive whitespace.
+- **Smooth Tab Transitions**: Instant tab switching powered by Inertia prefetching and subtle entrance animations.
+- **Password & Danger Zone**: Secure password change forms and a structured Danger Zone card with password confirmation for irreversible account deletion.
+
+### 💳 Subscriptions & Monetization
+- **Free vs. Pro Tiers**:
+  - **Free Tier**: 1 active space, up to 15 testimonials.
+  - **Pro Tier**: Unlimited spaces, unlimited testimonials.
+- **Stripe Checkout**: Integrated checkout flow using **Laravel Cashier (Stripe)**.
+- **Webhook Processing**: Cryptographically verified webhook handling with idempotent transaction safeguards.
+- **Customer Billing Portal**: Self-service Stripe Customer Portal for managing invoices, payment methods, and plan cancellations.
+
+### 🎨 Theme Customizer & Radiance
+- **Appearance Settings**: Real-time theme mode switching (Light, Dark, System).
+- **Curated Accent Palettes**: Dynamic accent colors (Sunset Rose, Emerald, Royal Indigo, Violet) with live interactive previews.
+
+### 🔐 Authentication & Enterprise Security
+- **Laravel Fortify Engine**: Secure registration, login, email verification, and password resets.
+- **Two-Factor Authentication (2FA)**: TOTP app support (Google Authenticator, 1Password) with QR codes and secure recovery codes.
+- **WebAuthn / Passkeys**: Hardware biometric and security key authentication support.
+- **Tenant Isolation**: Strict policy authorization ensuring owners can only view and manage their own resources.
+- **Privacy by Design**: Respondent email addresses are **never** rendered in public embeds, JSON APIs, or widget outputs.
+
+---
+
+## 🛠️ Tech Stack & Tooling
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| **AI Pair-Programming** | Google DeepMind Gemini 2.5 | Architecture design, full-stack implementation & automated testing |
+| **Testing / Tooling MCP**| Chrome DevTools MCP & Laravel Boost MCP | Live browser execution, screenshot verification, DOM audits |
+| **Backend Framework** | [Laravel 11/12](https://laravel.com) (PHP 8.4) | Modular backend, Eloquent ORM, Queues & Middleware |
+| **Frontend Adapter** | [Inertia.js v3](https://inertiajs.com) | Monolith SPA architecture with instant routing & state sync |
+| **Frontend UI** | [React 19](https://react.dev), [TypeScript](https://www.typescriptlang.org) | Modern reactive user interface |
+| **API & Routing** | [Laravel Wayfinder](https://github.com/laravel/wayfinder) | Auto-generated type-safe TS route and controller bindings |
+| **Styling & Design** | [Tailwind CSS v4](https://tailwindcss.com), [Radix UI](https://www.radix-ui.com) | Premium UI design system, dark mode & micro-animations |
+| **Icons & Effects** | [Lucide React](https://lucide.dev), Canvas Confetti | Crisp SVG iconography & celebratory micro-interactions |
+| **Billing & Payments** | [Laravel Cashier](https://laravel.com/docs/billing) (Stripe) | Subscriptions, customer portal & webhook handling |
+| **Authentication** | [Laravel Fortify](https://laravel.com/docs/fortify) + Passkeys | 2FA TOTP, Passkeys/WebAuthn, email verification |
+| **Database** | SQLite (default local) / MySQL 8+ / PostgreSQL | Reliable persistence with strict foreign keys & soft deletes |
+| **Testing Framework** | [Pest v5](https://pestphp.com) | 168 automated tests covering 100% of critical paths |
+| **Code Formatter** | [Laravel Pint](https://laravel.com/docs/pint) | Automated code styling adhering to PSR-12 / Laravel standards |
+
+---
+
 ## 🤖 Agentic AI Tooling Architecture & Usage
 
 Our agentic engineering workflow combined specialized subagents, domain skills, execution hooks, and MCP servers:
@@ -101,23 +181,6 @@ Our agentic engineering workflow combined specialized subagents, domain skills, 
 | **MCP Servers** | `chrome-devtools-mcp` | Interactive DOM inspection, computed style analysis (color-scheme, transparency), and click/navigation automation. |
 | **MCP Servers** | `Laravel Boost MCP` | Schema introspection, route verification (`php artisan route:list`), and framework health checks. |
 | **MCP Servers** | `StitchMCP` & `Firebase MCP` | Design system tokens and development environment management. |
-
----
-
-## 📝 Reflection on Agentic Development (200–300 Words)
-
-*The following reflection is also submitted as [`reflection.docx`](reflection.docx) and [`reflection.pdf`](reflection.pdf) in the root and `docs/` directory.*
-
-### 1. What worked well with Claude Code & the Agentic Workflow?
-Applying the agentic pair-programming workflow with structured context files (`CLAUDE.md`, `CONTEXT.md`) provided exceptional development velocity and architectural consistency. Explicit boundaries prevented scope creep and kept business logic strictly on the server. The plan → implement → verify rhythm worked seamlessly: the agent generated database migrations, Cashier Stripe billing, and Inertia React 19 interfaces while adhering strictly to tenant isolation policies. Integrating Model Context Protocol (MCP) tooling—specifically Chrome DevTools MCP for live DOM and viewport screenshot audits—proved game-changing for validating responsive layouts and celebratory micro-interactions without guesswork.
-
-### 2. Where did it go wrong, and how was it fixed?
-The primary challenge arose during profile photo uploads and settings view refinement. Initially, settings pages suffered from cavernous empty space on wide viewports, and standard PATCH HTTP requests struggled with PHP multipart form parsing boundaries. We diagnosed and resolved this by restructuring the settings layout into a balanced `max-w-5xl` container using modular card components, configuring dual HTTP method routing (`Route::match(['patch', 'post'])`), and implementing automated Pest feature tests to guarantee atomic disk storage cleanup whenever avatars were replaced or deleted.
-
-### 3. What would I plan differently next time?
-In future agentic projects, I would establish design layout tokens and reusable UI card primitives during initial setup rather than refining them after backend feature implementation. Furthermore, I would embed automated headless browser visual regression checks directly into subagent milestone gates from day one, catching UX and spacing gaps before proceeding to release verification.
-
-*(Word Count: 210 words)*
 
 ---
 
@@ -393,7 +456,7 @@ php artisan wayfinder:generate
 | **Agentic AI Tooling** | Matrix of subagents, skills, hooks, and MCP servers used | [`README.md#agentic-ai-tooling-architecture--usage`](#agentic-ai-tooling-architecture--usage) & [`docs/AGENTIC_WORKFLOW.md`](docs/AGENTIC_WORKFLOW.md) |
 | **Screen Recording (2–5 min)**| Short video walkthrough showing the working application | [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) (5 min 03 sec) |
 | **Full Video Walkthrough** | Comprehensive walkthrough covering all features & flows | [`docs/Testimonials Project.mp4`](docs/Testimonials%20Project.mp4) (15 min 03 sec) |
-| **Short Reflection (200–300 words)** | 210-word reflection answering all 3 evaluation questions | [`README.md#reflection-on-agentic-development-200300-words`](#reflection-on-agentic-development-200300-words), [`reflection.docx`](reflection.docx), [`reflection.pdf`](reflection.pdf) |
+| **Short Reflection (200–300 words)** | 210-word reflection answering all 3 evaluation questions | Documented in [`reflection.docx`](reflection.docx) and [`reflection.pdf`](reflection.pdf) |
 
 ---
 
