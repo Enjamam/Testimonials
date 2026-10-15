@@ -14,13 +14,9 @@ A modern, production-ready SaaS application for collecting, moderating, and embe
 Watch the application in action through our screen recordings demonstrating the full end-to-end user workflow—from space creation and branded URL generation to public review submission with celebratory confetti, moderation inbox, 1-click CSV export, and responsive Wall of Love embeds.
 
 ### ⚡ 1. Short Screen Recording (2–5 Minutes) — *Course Submission Requirement*
-> **File**: [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) &bull; **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
-
-<video src="docs/Testimonials%20Project-Short.webm" controls="controls" width="100%" style="max-height: 520px; border-radius: 12px; border: 1px solid #334155;">
-  <a href="docs/Testimonials%20Project-Short.webm">▶️ Download or Watch Quick Walkthrough (5 min 03 sec WebM)</a>
-</video>
-
-*Direct Links: [Watch / Download Quick Video (5 min WebM)](docs/Testimonials%20Project-Short.webm)*
+- 📹 **Video File**: [**`docs/Testimonials Project-Short.webm`**](docs/Testimonials%20Project-Short.webm)
+- ⏱️ **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
+- 🌐 **Online Viewer**: [Watch on GitHub](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm)
 
 **Features Demonstrated in the Short Walkthrough:**
 1. **Space Creation & Branded URLs**: Creating a testimonial collection space with custom guiding prompts and instant human-friendly URLs (`/s/cloudscale-devops`).
@@ -33,13 +29,9 @@ Watch the application in action through our screen recordings demonstrating the 
 ---
 
 ### 🎬 2. Full Comprehensive Walkthrough (15 Minutes)
-> **File**: [`docs/Testimonials Project.mp4`](docs/Testimonials%20Project.mp4) &bull; **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
-
-<video src="docs/Testimonials%20Project.mp4" controls="controls" width="100%" style="max-height: 520px; border-radius: 12px; border: 1px solid #334155;">
-  <a href="docs/Testimonials%20Project.mp4">▶️ Download or Watch Comprehensive Walkthrough (15 min MP4)</a>
-</video>
-
-*Direct Link: [Watch / Download Full Walkthrough (15 min MP4)](docs/Testimonials%20Project.mp4)*
+- 📹 **Video File**: [**`docs/Testimonials Project.mp4`**](docs/Testimonials%20Project.mp4)
+- ⏱️ **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
+- 🌐 **Online Viewer**: [Watch on GitHub](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4)
 
 ---
 
