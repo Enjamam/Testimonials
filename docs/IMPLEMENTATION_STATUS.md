@@ -11,7 +11,7 @@ Last Updated: Phase 12 QA & Release Verification (All Phases Complete)
 - **Composer Version**: `2.10.2`
 - **Node.js Version**: `v22.18.0`
 - **npm Version**: `11.6.1`
-- **Git Status**: Not a git repository (`.git` does not exist in the project or parent directory).
+- **Git Status**: Active repository at [`https://github.com/Enjamam/Testimonials`](https://github.com/Enjamam/Testimonials) (Branch: `main`).
 
 > **Note on PATH**: The shell environment requires Laravel Herd's binary directories (`C:\Users\BS01643\.config\herd\bin` and `C:\Users\BS01643\.config\herd\bin\php84`) in `$env:PATH` for `php`, `composer`, and `php artisan wayfinder:generate` (invoked during Vite builds) to execute.
 
