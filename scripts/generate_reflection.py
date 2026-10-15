@@ -42,6 +42,7 @@ def create_docx(filepath):
 
     # Subtitle / Metadata
     meta = doc.add_paragraph()
+    meta.alignment = WD_ALIGN_PARAGRAPH.LEFT
     meta_run = meta.add_run("Course Assignment Submission | Module 13: Agentic Engineering Workflow\nRepository: https://github.com/Enjamam/Testimonials")
     meta_run.font.name = "Calibri"
     meta_run.font.size = Pt(10)
@@ -52,6 +53,7 @@ def create_docx(filepath):
 
     # Section 1
     h1 = doc.add_paragraph()
+    h1.alignment = WD_ALIGN_PARAGRAPH.LEFT
     r1 = h1.add_run("1. What worked well with Claude Code & the Agentic Workflow?")
     r1.font.name = "Calibri"
     r1.font.size = Pt(12)
@@ -59,20 +61,22 @@ def create_docx(filepath):
     r1.font.color.rgb = RGBColor(15, 23, 42)
 
     p1 = doc.add_paragraph()
+    p1.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p1_run = p1.add_run(
-        "Applying the agentic pair-programming workflow with structured context files (CLAUDE.md, CONTEXT.md) "
-        "provided exceptional development velocity and architectural consistency. Explicit boundaries prevented scope "
-        "creep and kept business logic strictly on the server. The plan \u2192 implement \u2192 verify rhythm worked seamlessly: "
-        "the agent generated database migrations, Cashier Stripe billing, and Inertia React 19 interfaces while adhering "
-        "strictly to tenant isolation policies. Integrating Model Context Protocol (MCP) tooling\u2014specifically Chrome DevTools MCP "
-        "for live DOM and viewport screenshot audits\u2014proved game-changing for validating responsive layouts and celebratory "
-        "micro-interactions without guesswork."
+        "Applying the agentic pair-programming workflow with structured specification files (CLAUDE.md, CONTEXT.md) "
+        "provided exceptional development velocity and architectural consistency. Explicit boundaries prevented scope creep "
+        "while keeping business logic and tenant authorization strictly on the server. The plan \u2192 implement \u2192 verify rhythm worked "
+        "seamlessly: the agent generated database migrations, Cashier Stripe subscriptions, short branded slugs (/s/{slug}), and "
+        "Inertia React 19 interfaces. Integrating Model Context Protocol (MCP) tooling\u2014notably Chrome DevTools MCP for real-time viewport "
+        "screenshot audits and DOM inspection\u2014proved invaluable for validating responsive layouts, dark/light theme switching, and "
+        "celebratory micro-interactions without visual guesswork."
     )
     p1_run.font.name = "Calibri"
     p1_run.font.size = Pt(10.5)
 
     # Section 2
     h2 = doc.add_paragraph()
+    h2.alignment = WD_ALIGN_PARAGRAPH.LEFT
     r2 = h2.add_run("2. Where did it go wrong, and how was it fixed?")
     r2.font.name = "Calibri"
     r2.font.size = Pt(12)
@@ -80,18 +84,21 @@ def create_docx(filepath):
     r2.font.color.rgb = RGBColor(15, 23, 42)
 
     p2 = doc.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p2_run = p2.add_run(
-        "The primary challenge arose during profile photo uploads and settings view refinement. Initially, settings pages "
-        "suffered from cavernous empty space on wide viewports, and standard PATCH HTTP requests struggled with PHP multipart form "
-        "parsing boundaries. We diagnosed and resolved this by restructuring the settings layout into a balanced max-w-5xl container "
-        "using modular card components, configuring dual HTTP method routing (Route::match(['patch', 'post'])), and implementing "
-        "automated Pest feature tests to guarantee atomic disk storage cleanup whenever avatars were replaced or deleted."
+        "Two primary challenges arose during development: avatar file uploads and iframe embed theme clashes. Early settings pages "
+        "suffered from wide-viewport whitespace, and standard PATCH HTTP requests conflicted with PHP multipart form boundaries; we "
+        "resolved this with modular card layouts, dual-method routing (Route::match(['patch', 'post'])), and atomic disk cleanup tests. "
+        "Later, the standalone embed widget encountered a dark-mode canvas clash where Chromium rendered transparent iframes as opaque "
+        "black over host sites; we fixed this by strictly isolating color-scheme properties and removing layout-level theme overrides "
+        "inside embed routes."
     )
     p2_run.font.name = "Calibri"
     p2_run.font.size = Pt(10.5)
 
     # Section 3
     h3 = doc.add_paragraph()
+    h3.alignment = WD_ALIGN_PARAGRAPH.LEFT
     r3 = h3.add_run("3. What would I plan differently next time?")
     r3.font.name = "Calibri"
     r3.font.size = Pt(12)
@@ -99,11 +106,12 @@ def create_docx(filepath):
     r3.font.color.rgb = RGBColor(15, 23, 42)
 
     p3 = doc.add_paragraph()
+    p3.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p3_run = p3.add_run(
-        "In future agentic projects, I would establish design layout tokens and reusable UI card primitives during initial setup "
-        "rather than refining them after backend feature implementation. Furthermore, I would embed automated headless browser "
-        "visual regression checks directly into subagent milestone gates from day one, catching UX and spacing gaps before "
-        "proceeding to release verification."
+        "In future agentic projects, I would establish design tokens and reusable UI card primitives during initial project "
+        "bootstrapping rather than refining them post-implementation. Furthermore, I would integrate automated headless visual "
+        "regression checks directly into subagent milestone gates from day one, catching UX and spacing gaps before proceeding to "
+        "final verification."
     )
     p3_run.font.name = "Calibri"
     p3_run.font.size = Pt(10.5)
@@ -112,6 +120,7 @@ def create_docx(filepath):
 
     # Deliverables Section
     h_sub = doc.add_paragraph()
+    h_sub.alignment = WD_ALIGN_PARAGRAPH.LEFT
     r_sub = h_sub.add_run("Submission Deliverables & Repository Verification Index")
     r_sub.font.name = "Calibri"
     r_sub.font.size = Pt(12)
@@ -125,7 +134,7 @@ def create_docx(filepath):
         ("Agentic AI Tooling", "Documented in README.md & docs/AGENTIC_WORKFLOW.md (Subagents, Skills, Hooks, MCP tooling)"),
         ("Screen Recording (2–5 min)", "docs/Testimonials Project-Short.webm (Duration: 5 min 03 sec, short app walkthrough)"),
         ("Full Video Walkthrough", "docs/Testimonials Project.mp4 (Duration: 15 min 03 sec, comprehensive feature demo)"),
-        ("Project Reflection", "Included in reflection.docx, reflection.pdf, and README.md (Word Count: 210 words)"),
+        ("Project Reflection", "Included in reflection.docx and reflection.pdf (Word Count: 242 words)"),
     ]
 
     table = doc.add_table(rows=1, cols=2)
@@ -140,6 +149,7 @@ def create_docx(filepath):
         set_cell_background(cell, "047857")
         set_cell_margins(cell, top=120, bottom=120, left=140, right=140)
         for paragraph in cell.paragraphs:
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
             for run in paragraph.runs:
                 run.font.name = "Calibri"
                 run.font.size = Pt(9.5)
@@ -160,6 +170,7 @@ def create_docx(filepath):
             set_cell_background(cell, bg)
             set_cell_margins(cell, top=90, bottom=90, left=140, right=140)
             for paragraph in cell.paragraphs:
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
                 for run in paragraph.runs:
                     run.font.name = "Calibri"
                     run.font.size = Pt(9)
@@ -190,6 +201,8 @@ def create_pdf(html_path, pdf_path):
         line-height: 1.55;
         font-size: 10pt;
         background: #fff;
+        margin: 0;
+        padding: 0;
     }
     .header {
         border-bottom: 2px solid #10b981;
@@ -199,14 +212,17 @@ def create_pdf(html_path, pdf_path):
     h1 {
         color: #047857;
         font-size: 17pt;
-        margin: 0 0 4px 0;
+        margin: 0 0 6px 0;
         font-weight: 700;
         letter-spacing: -0.4px;
+        text-align: left;
     }
     .meta {
         color: #64748b;
         font-size: 9pt;
         margin: 0;
+        text-align: left;
+        line-height: 1.4;
     }
     .meta a {
         color: #059669;
@@ -218,19 +234,22 @@ def create_pdf(html_path, pdf_path):
         font-size: 11pt;
         margin: 14px 0 6px 0;
         font-weight: 600;
+        text-align: left;
     }
     p {
         margin: 0 0 10px 0;
         color: #334155;
-        text-align: justify;
+        text-align: left;
+        line-height: 1.55;
     }
     code {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        font-size: 9pt;
+        font-size: 8.5pt;
         background: #f1f5f9;
-        padding: 2px 4px;
+        padding: 1px 4px;
         border-radius: 4px;
         color: #0f172a;
+        border: 1px solid #e2e8f0;
     }
     .section-title {
         color: #047857;
@@ -239,6 +258,7 @@ def create_pdf(html_path, pdf_path):
         margin: 18px 0 8px 0;
         border-bottom: 1px solid #e2e8f0;
         padding-bottom: 4px;
+        text-align: left;
     }
     table {
         width: 100%;
@@ -257,6 +277,7 @@ def create_pdf(html_path, pdf_path):
         padding: 5px 10px;
         border-bottom: 1px solid #e2e8f0;
         color: #334155;
+        text-align: left;
     }
     tr:nth-child(even) td {
         background: #f8fafc;
@@ -273,34 +294,34 @@ def create_pdf(html_path, pdf_path):
 <body>
     <div class="header">
         <h1>Project Reflection: Testimonial Collection SaaS</h1>
-        <p class="meta">
-            <strong>Course:</strong> Agentic Engineering Workflow (Module 13 Assignment) &bull; 
-            <strong>GitHub:</strong> <a href="https://github.com/Enjamam/Testimonials">https://github.com/Enjamam/Testimonials</a>
-        </p>
+        <div class="meta">
+            <span><strong>Course:</strong> Agentic Engineering Workflow (Module 13 Assignment)</span> &bull; 
+            <span><strong>GitHub:</strong> <a href="https://github.com/Enjamam/Testimonials">https://github.com/Enjamam/Testimonials</a></span>
+        </div>
     </div>
 
     <h2>1. What worked well with Claude Code & the Agentic Workflow?</h2>
     <p>
-        Applying the agentic pair-programming workflow with structured context files (<code>CLAUDE.md</code>, <code>CONTEXT.md</code>) 
-        provided exceptional development velocity and architectural consistency. Explicit boundaries prevented scope creep and kept 
-        business logic strictly on the server. The plan &rarr; implement &rarr; verify rhythm worked seamlessly: the agent generated database 
-        migrations, Cashier Stripe billing, and Inertia React 19 interfaces while adhering strictly to tenant isolation policies. 
-        Integrating Model Context Protocol (MCP) tooling&mdash;specifically Chrome DevTools MCP for live DOM and viewport screenshot audits&mdash;proved 
-        game-changing for validating responsive layouts and celebratory micro-interactions without guesswork.
+        Applying the agentic pair-programming workflow with structured specification files (<code>CLAUDE.md</code>, <code>CONTEXT.md</code>) 
+        provided exceptional development velocity and architectural consistency. Explicit boundaries prevented scope creep while keeping 
+        business logic and tenant authorization strictly on the server. The plan &rarr; implement &rarr; verify rhythm worked seamlessly: 
+        the agent generated database migrations, Cashier Stripe subscriptions, short branded slugs (<code>/s/{slug}</code>), and Inertia React 19 interfaces. 
+        Integrating Model Context Protocol (MCP) tooling&mdash;notably Chrome DevTools MCP for real-time viewport screenshot audits and DOM inspection&mdash;proved 
+        invaluable for validating responsive layouts, dark/light theme switching, and celebratory micro-interactions without visual guesswork.
     </p>
 
     <h2>2. Where did it go wrong, and how was it fixed?</h2>
     <p>
-        The primary challenge arose during profile photo uploads and settings view refinement. Initially, settings pages suffered from 
-        cavernous empty space on wide viewports, and standard PATCH HTTP requests struggled with PHP multipart form parsing boundaries. 
-        We diagnosed and resolved this by restructuring the settings layout into a balanced <code>max-w-5xl</code> container using modular card components, 
-        configuring dual HTTP method routing (<code>Route::match(['patch', 'post'])</code>), and implementing automated Pest feature tests to guarantee 
-        atomic disk storage cleanup whenever avatars were replaced or deleted.
+        Two primary challenges arose during development: avatar file uploads and iframe embed theme clashes. Early settings pages suffered 
+        from wide-viewport whitespace, and standard PATCH HTTP requests conflicted with PHP multipart form boundaries; we resolved this with modular 
+        card layouts, dual-method routing (<code>Route::match(['patch', 'post'])</code>), and atomic disk cleanup tests. Later, the standalone embed widget 
+        encountered a dark-mode canvas clash where Chromium rendered transparent iframes as opaque black over host sites; we fixed this by strictly 
+        isolating <code>color-scheme</code> properties and removing layout-level theme overrides inside embed routes.
     </p>
 
     <h2>3. What would I plan differently next time?</h2>
     <p>
-        In future agentic projects, I would establish design layout tokens and reusable UI card primitives during initial setup rather than refining them after backend feature implementation. Furthermore, I would embed automated headless browser visual regression checks directly into subagent milestone gates from day one, catching UX and spacing gaps before proceeding to release verification.
+        In future agentic projects, I would establish design tokens and reusable UI card primitives during initial project bootstrapping rather than refining them post-implementation. Furthermore, I would integrate automated headless visual regression checks directly into subagent milestone gates from day one, catching UX and spacing gaps before proceeding to final verification.
     </p>
 
     <div class="section-title">Submission Deliverables & Repository Verification Index</div>
@@ -338,7 +359,7 @@ def create_pdf(html_path, pdf_path):
             </tr>
             <tr>
                 <td><strong>Project Reflection</strong></td>
-                <td>Included in <code>reflection.docx</code>, <code>reflection.pdf</code>, and <code>README.md</code> (Word Count: 210 words)</td>
+                <td>Included in <code>reflection.docx</code> and <code>reflection.pdf</code> (Word Count: 242 words)</td>
             </tr>
         </tbody>
     </table>
