@@ -15,10 +15,8 @@ Watch the application in action through our screen recordings demonstrating the 
 
 ### ⚡ 1. Short Screen Recording (2–5 Minutes) — *Course Submission Requirement*
 
-[![Watch Quick Video Walkthrough (5m 03s)](docs/video-short-thumbnail.png)](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm)
-
-> 💡 **Watch Directly in Browser**: Click the thumbnail card above to stream the video instantly in GitHub's native media player (**No download required**).
-> - **Video File**: [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) &bull; **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
+- 🔗 **Direct Video Link**: [▶️ **Watch Quick Walkthrough Video (5m 03s)**](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm)
+- 📁 **Repository File**: [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) &bull; **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
 
 **Features Demonstrated in the Short Walkthrough:**
 1. **Space Creation & Branded URLs**: Creating a testimonial collection space with custom guiding prompts and instant human-friendly URLs (`/s/cloudscale-devops`).
@@ -32,10 +30,8 @@ Watch the application in action through our screen recordings demonstrating the 
 
 ### 🎬 2. Full Comprehensive Walkthrough (15 Minutes)
 
-[![Watch Full Feature Walkthrough (15m 03s)](docs/video-full-thumbnail.png)](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4)
-
-> 💡 **Watch Directly in Browser**: Click the thumbnail card above to stream the comprehensive demo instantly in GitHub's native player (**No download required**).
-> - **Video File**: [`docs/Testimonials Project.mp4`](docs/Testimonials%20Project.mp4) &bull; **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
+- 🔗 **Direct Video Link**: [▶️ **Watch Full Feature Walkthrough (15m 03s)**](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4)
+- 📁 **Repository File**: [`docs/Testimonials Project.mp4`](docs/Testimonials%20Project.mp4) &bull; **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
 
 ---
 
