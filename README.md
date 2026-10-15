@@ -14,9 +14,13 @@ A modern, production-ready SaaS application for collecting, moderating, and embe
 Watch the application in action through our screen recordings demonstrating the full end-to-end user workflow—from space creation and branded URL generation to public review submission with celebratory confetti, moderation inbox, 1-click CSV export, and responsive Wall of Love embeds.
 
 ### ⚡ 1. Short Screen Recording (2–5 Minutes) — *Course Submission Requirement*
-- 📹 **Video File**: [**`docs/Testimonials Project-Short.webm`**](docs/Testimonials%20Project-Short.webm)
-- ⏱️ **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
-- 🌐 **Online Viewer**: [Watch on GitHub](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm)
+
+[![Watch Quick Video Walkthrough (5m 03s)](docs/video-short-thumbnail.png)](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm)
+
+<iframe src="https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project-Short.webm" width="100%" height="460" frameborder="0" allowfullscreen></iframe>
+
+> 💡 **Watch Directly in Browser**: Click the player above to stream the video instantly in GitHub's native media player (**No download required**).
+> - **Video File**: [`docs/Testimonials Project-Short.webm`](docs/Testimonials%20Project-Short.webm) &bull; **Duration**: `5 min 03 sec` &bull; **Size**: `87.7 MB`
 
 **Features Demonstrated in the Short Walkthrough:**
 1. **Space Creation & Branded URLs**: Creating a testimonial collection space with custom guiding prompts and instant human-friendly URLs (`/s/cloudscale-devops`).
@@ -29,9 +33,13 @@ Watch the application in action through our screen recordings demonstrating the 
 ---
 
 ### 🎬 2. Full Comprehensive Walkthrough (15 Minutes)
-- 📹 **Video File**: [**`docs/Testimonials Project.mp4`**](docs/Testimonials%20Project.mp4)
-- ⏱️ **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
-- 🌐 **Online Viewer**: [Watch on GitHub](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4)
+
+[![Watch Full Feature Walkthrough (15m 03s)](docs/video-full-thumbnail.png)](https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4)
+
+<iframe src="https://github.com/Enjamam/Testimonials/blob/main/docs/Testimonials%20Project.mp4" width="100%" height="460" frameborder="0" allowfullscreen></iframe>
+
+> 💡 **Watch Directly in Browser**: Click the player above to stream the comprehensive demo instantly in GitHub's native player (**No download required**).
+> - **Video File**: [`docs/Testimonials Project.mp4`](docs/Testimonials%20Project.mp4) &bull; **Duration**: `15 min 03 sec` &bull; **Size**: `57.9 MB`
 
 ---
 
